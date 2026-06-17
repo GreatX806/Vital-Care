@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VitalCare Health & Wellness — Modern Healthcare</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Extra inline animations */
+    @keyframes ecgDraw {
+      0%   { stroke-dashoffset: 3000; }
+      100% { stroke-dashoffset: -3000; }
+    }
+    .ecg-path {
+      fill: none; stroke: #00BCD4; stroke-width: 2.5;
+      stroke-dasharray: 3000; stroke-dashoffset: 3000;
+      animation: ecgDraw 4s linear infinite;
+      filter: drop-shadow(0 0 6px #00BCD4);
+    }
+    /* Floating medical icons */
+    .float-icon {
+      position: absolute; font-size: 2rem; opacity: 0.12;
+      animation: floatIcon var(--dur, 8s) ease-in-out infinite var(--delay, 0s);
+    }
+    @keyframes floatIcon {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-20px) rotate(10deg); }
+    }
+    /* Hero video-like morphing bg */
+    .hero-morph {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(0,188,212,0.18) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 80% at 20% 70%, rgba(0,76,94,0.6) 0%, transparent 60%);
+      animation: morphShift 12s ease-in-out infinite alternate;
+    }
+    @keyframes morphShift {
+      0%   { background-position: 70% 40%, 20% 70%; opacity: 0.8; }
+      50%  { background-position: 60% 55%, 30% 60%; opacity: 1; }
+      100% { background-position: 75% 35%, 15% 75%; opacity: 0.9; }
+    }
+    /* Ripple rings */
+    .ripple-ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(0,188,212,0.2);
+      animation: rippleExpand var(--dur, 4s) ease-out infinite var(--delay, 0s);
+    }
+    @keyframes rippleExpand {
+      0%   { transform: scale(0.5); opacity: 0.8; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    /* Page-specific hero bg for subpages */
+    .subpage-hero {
+      background: linear-gradient(135deg, var(--deep-teal) 0%, var(--teal-mid) 100%);
+      padding: 10rem 4rem 5rem; position: relative; overflow: hidden;
+    }
+    .subpage-hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(0,188,212,0.15), transparent);
+    }
+    .subpage-hero h1 {
+      font-family: var(--font-display); font-size: clamp(2rem,4vw,3.5rem);
+      color: white; font-weight: 700; position: relative; z-index: 1;
+    }
+    .subpage-hero p {
+      color: rgba(255,255,255,0.65); font-size: 1.1rem;
+      max-width: 500px; margin-top: 1rem; position: relative; z-index: 1;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: rgba(255,255,255,0.5);
+      margin-bottom: 1.5rem; position: relative; z-index: 1;
+    }
+    .breadcrumb a { color: var(--cyan); text-decoration: none; }
+    .breadcrumb span { color: rgba(255,255,255,0.3); }
+
+    /* Stats band */
+    .stats-band {
+      background: white; padding: 3rem 4rem;
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 2rem; box-shadow: 0 4px 30px rgba(0,0,0,0.07);
+    }
+    .stat-box { text-align: center; }
+    .stat-box .num {
+      font-family: var(--font-display); font-size: 2.5rem;
+      font-weight: 700; color: var(--deep-teal); line-height: 1;
+    }
+    .stat-box .num span { color: var(--cyan); }
+    .stat-box p { font-size: 0.85rem; color: var(--text-light); margin-top: 0.4rem; }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: linear-gradient(120deg, var(--deep-teal) 0%, var(--teal-mid) 100%);
+      padding: 5rem 4rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(0,188,212,0.2), transparent 60%);
+    }
+    .cta-banner h2 {
+      font-family: var(--font-display); font-size: 2.5rem;
+      color: white; margin-bottom: 1rem; position: relative; z-index: 1;
+    }
+    .cta-banner p {
+      color: rgba(255,255,255,0.7); margin-bottom: 2rem; position: relative; z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .stats-band { grid-template-columns: 1fr 1fr; padding: 2rem 1.5rem; }
+      .subpage-hero { padding: 8rem 1.5rem 3rem; }
+      .cta-banner { padding: 3.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loading-overlay" id="loader">
+  <div class="nav-logo" style="font-size:2rem">
+    <div class="logo-dot"></div> VitalCare
+  </div>
+  <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+</div>
+
+<!-- ─── NAVIGATION ─── -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo" data-page="home">
+    <div class="logo-dot"></div>
+    VitalCare
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" data-page="home" class="active">Home</a></li>
+    <li><a href="#" data-page="services">Services</a></li>
+    <li><a href="#" data-page="doctors">Our Doctors</a></li>
+    <li><a href="#" data-page="about">About</a></li>
+    <li><a href="#" data-page="contact" class="nav-cta">Book Appointment</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════════════ -->
+<div id="home" class="page active">
+
+  <!-- HERO with animated canvas -->
+  <section class="hero">
+    <div class="hero-morph"></div>
+    <canvas id="heroCanvas" class="hero-canvas"></canvas>
+    <div class="hero-overlay"></div>
+
+    <!-- Floating icons -->
+    <div class="float-icon" style="top:15%;left:70%;--dur:9s;--delay:0s">🩺</div>
+    <div class="float-icon" style="top:60%;left:80%;--dur:11s;--delay:2s">💊</div>
+    <div class="float-icon" style="top:25%;left:55%;--dur:7s;--delay:1s">🧬</div>
+    <div class="float-icon" style="top:75%;left:65%;--dur:10s;--delay:3s">🏥</div>
+
+    <!-- Ripple rings behind hero -->
+    <div class="ripple-ring" style="width:300px;height:300px;top:20%;right:20%;--dur:5s;--delay:0s"></div>
+    <div class="ripple-ring" style="width:200px;height:200px;top:50%;right:30%;--dur:6s;--delay:1.5s"></div>
+    <div class="ripple-ring" style="width:400px;height:400px;top:10%;right:10%;--dur:8s;--delay:3s"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Trusted Healthcare Since 2004</div>
+      <h1 class="hero-title">
+        Your Health,<br><em>Our Priority</em>
+      </h1>
+      <p class="hero-subtitle">
+        World-class medical care with cutting-edge technology and compassionate professionals — all dedicated to your well-being.
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" data-page="contact">
+          Book Appointment →
+        </a>
+        <a href="#" class="btn-ghost" data-page="services">
+          Explore Services
+        </a>
+      </div>
+    </div>
+
+    <!-- ECG heartbeat line -->
+    <div class="ecg-container">
+      <svg id="ecgSvg" class="ecg-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path class="ecg-path" d="
+          M0,60 L80,60 L90,60 L95,50 L100,90 L106,0 L112,75 L118,60 L200,60
+          L280,60 L290,60 L295,50 L300,90 L306,0 L312,75 L318,60 L400,60
+          L480,60 L490,60 L495,50 L500,90 L506,0 L512,75 L518,60 L600,60
+          L680,60 L690,60 L695,50 L700,90 L706,0 L712,75 L718,60 L800,60
+          L880,60 L890,60 L895,50 L900,90 L906,0 L912,75 L918,60 L1000,60
+          L1080,60 L1090,60 L1095,50 L1100,90 L1106,0 L1112,75 L1118,60 L1200,60
+        "/>
+      </svg>
+    </div>
+
+    <!-- Stats -->
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number"><span data-count="12" data-suffix="K+">0</span></div>
+        <div class="stat-label">Patients Treated</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span data-count="48" data-suffix="+">0</span></div>
+        <div class="stat-label">Specialist Doctors</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span data-count="20" data-suffix=" yrs">0</span></div>
+        <div class="stat-label">Years of Excellence</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span data-count="98" data-suffix="%">0</span></div>
+        <div class="stat-label">Patient Satisfaction</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="arrow"></div>
+    </div>
+  </section>
+
+  <!-- STATS BAND -->
+  <div class="stats-band">
+    <div class="stat-box fade-up">
+      <div class="num"><span>24</span>/7</div>
+      <p>Emergency Care Available</p>
+    </div>
+    <div class="stat-box fade-up stagger-1">
+      <div class="num"><span>15</span>+</div>
+      <p>Medical Specialties</p>
+    </div>
+    <div class="stat-box fade-up stagger-2">
+      <div class="num"><span>3</span></div>
+      <p>State-of-the-Art Facilities</p>
+    </div>
+    <div class="stat-box fade-up stagger-3">
+      <div class="num"><span>₦0</span></div>
+      <p>Consultation for First Visit</p>
+    </div>
+  </div>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="services-bg">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-title fade-up">Comprehensive Care<br>for Every Need</h2>
+    <p class="section-sub fade-up stagger-1">From preventive care to advanced surgery — we're equipped to handle every chapter of your health journey.</p>
+    <div class="services-grid">
+      <div class="service-card fade-up stagger-1">
+        <div class="service-icon">🫀</div>
+        <h3>Cardiology</h3>
+        <p>Advanced heart care with echocardiography, stress tests, and catheterization procedures by seasoned cardiologists.</p>
+        <a href="#" class="service-link" data-page="services">Learn more →</a>
+      </div>
+      <div class="service-card fade-up stagger-2">
+        <div class="service-icon">🧠</div>
+        <h3>Neurology</h3>
+        <p>Expert diagnosis and treatment for conditions affecting the brain, spine, and nervous system using cutting-edge imaging.</p>
+        <a href="#" class="service-link" data-page="services">Learn more →</a>
+      </div>
+      <div class="service-card fade-up stagger-3">
+        <div class="service-icon">🦷</div>
+        <h3>Dental Care</h3>
+        <p>Complete oral health services from routine cleaning to cosmetic procedures and orthodontic treatment.</p>
+        <a href="#" class="service-link" data-page="services">Learn more →</a>
+      </div>
+      <div class="service-card fade-up stagger-1">
+        <div class="service-icon">👁️</div>
+        <h3>Ophthalmology</h3>
+        <p>Vision correction, cataract surgery, glaucoma management, and retinal care with the latest laser technology.</p>
+        <a href="#" class="service-link" data-page="services">Learn more →</a>
+      </div>
+      <div class="service-card fade-up stagger-2">
+        <div class="service-icon">🦴</div>
+        <h3>Orthopedics</h3>
+        <p>Bone, joint, and muscle treatment including minimally invasive joint replacement and sports medicine rehabilitation.</p>
+        <a href="#" class="service-link" data-page="services">Learn more →</a>
+      </div>
+      <div class="service-card fade-up stagger-3">
+        <div class="service-icon">🤰</div>
+        <h3>Maternity Care</h3>
+        <p>Compassionate prenatal, delivery, and postnatal support for mother and child in a warm, safe environment.</p>
+        <a href="#" class="service-link" data-page="services">Learn more →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section>
+    <div class="why-grid">
+      <div class="why-visual fade-left">
+        <div class="why-circle">🏥</div>
+        <div class="why-badge b1">
+          <div class="badge-icon">🏆</div>
+          <div class="badge-text">
+            <strong>#1 Rated</strong>
+            <span>Hospital in Lagos</span>
+          </div>
+        </div>
+        <div class="why-badge b2">
+          <div class="badge-icon">⚡</div>
+          <div class="badge-text">
+            <strong>&lt;15 min</strong>
+            <span>Average wait time</span>
+          </div>
+        </div>
+        <div class="why-badge b3">
+          <div class="badge-icon">🛡️</div>
+          <div class="badge-text">
+            <strong>ISO 9001</strong>
+            <span>Certified Quality</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag">Why Choose Us</div>
+        <h2 class="section-title fade-up">Excellence in Every<br>Detail of Care</h2>
+        <p class="section-sub fade-up">We go beyond treating illness — we build lasting health partnerships with every patient we serve.</p>
+        <ul class="why-list">
+          <li>
+            <div class="check">✓</div>
+            <div>
+              <h4>Board-Certified Specialists</h4>
+              <p>All our physicians are rigorously vetted, internationally trained, and continuously certified in their fields.</p>
+            </div>
+          </li>
+          <li>
+            <div class="check">✓</div>
+            <div>
+              <h4>Advanced Medical Technology</h4>
+              <p>From 3T MRI scanners to robotic-assisted surgery — we invest in the best tools for your diagnosis and treatment.</p>
+            </div>
+          </li>
+          <li>
+            <div class="check">✓</div>
+            <div>
+              <h4>Patient-First Philosophy</h4>
+              <p>Every care plan is tailored to the individual. You're never a case number here — you're a person we genuinely care about.</p>
+            </div>
+          </li>
+          <li>
+            <div class="check">✓</div>
+            <div>
+              <h4>Affordable & Transparent Pricing</h4>
+              <p>We believe quality care shouldn't break the bank. Clear billing, flexible payment plans, and HMO partnerships available.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCTORS PREVIEW -->
+  <section class="doctors-bg">
+    <div class="section-tag" style="color:var(--cyan)">Meet the Team</div>
+    <h2 class="section-title" style="color:white">Our Expert Physicians</h2>
+    <p class="section-sub">Dedicated specialists committed to world-class care with a human touch.</p>
+    <div class="doctors-grid">
+      <div class="doctor-card fade-up stagger-1">
+        <div class="doctor-img"><div class="doctor-img-inner">👨‍⚕️</div></div>
+        <div class="doctor-info">
+          <h3>Dr. Chukwuemeka Osei</h3>
+          <div class="specialty">Cardiologist</div>
+          <div class="rating"><span class="stars">★★★★★</span> (4.9)</div>
+          <div class="availability">Available Mon–Fri</div>
+        </div>
+      </div>
+      <div class="doctor-card fade-up stagger-2">
+        <div class="doctor-img"><div class="doctor-img-inner">👩‍⚕️</div></div>
+        <div class="doctor-info">
+          <h3>Dr. Amara Nwosu</h3>
+          <div class="specialty">Neurologist</div>
+          <div class="rating"><span class="stars">★★★★★</span> (4.8)</div>
+          <div class="availability">Available Tue–Sat</div>
+        </div>
+      </div>
+      <div class="doctor-card fade-up stagger-3">
+        <div class="doctor-img"><div class="doctor-img-inner">👨‍⚕️</div></div>
+        <div class="doctor-info">
+          <h3>Dr. Babatunde Adeyemi</h3>
+          <div class="specialty">Orthopedic Surgeon</div>
+          <div class="rating"><span class="stars">★★★★★</span> (5.0)</div>
+          <div class="availability">Available Mon–Thu</div>
+        </div>
+      </div>
+      <div class="doctor-card fade-up stagger-4">
+        <div class="doctor-img"><div class="doctor-img-inner">👩‍⚕️</div></div>
+        <div class="doctor-info">
+          <h3>Dr. Ngozi Obiechina</h3>
+          <div class="specialty">OB/Gynecologist</div>
+          <div class="rating"><span class="stars">★★★★★</span> (4.9)</div>
+          <div class="availability">Available Wed–Sun</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3rem">
+      <a href="#" class="btn-primary" data-page="doctors">Meet All Doctors →</a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-bg">
+    <div class="section-tag">Patient Stories</div>
+    <h2 class="section-title fade-up">Voices of Our Community</h2>
+    <p class="section-sub fade-up stagger-1">Real outcomes from real patients — hear what our community says about their VitalCare experience.</p>
+    <div class="testimonials-slider">
+      <div class="testimonials-track">
+        <div class="testimonial-slide">
+          <div class="testimonial-inner">
+            <p class="testimonial-text">After my cardiac procedure at VitalCare, I was back on my feet in three weeks. The care I received — from diagnosis to recovery — was exceptional. Dr. Osei is truly gifted, and the nursing staff made me feel at home throughout.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">👴</div>
+              <div>
+                <div class="author-name">Mr. Emeka Ihejirika</div>
+                <div class="author-role">Cardiac Patient, Lagos Island</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-slide">
+          <div class="testimonial-inner">
+            <p class="testimonial-text">I gave birth to my twins here and the maternity ward exceeded every expectation. The doctors were attentive, the facility spotless, and they walked with me through every anxiety. I cannot recommend VitalCare enough.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">👩</div>
+              <div>
+                <div class="author-name">Mrs. Aisha Mohammed</div>
+                <div class="author-role">Maternity Patient, Abuja</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-slide">
+          <div class="testimonial-inner">
+            <p class="testimonial-text">My knee replacement surgery was seamless. Within six months I was hiking again — something I hadn't done in years. The physiotherapy team at VitalCare is incredible. They push you, believe in you, and celebrate with you.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">🧑</div>
+              <div>
+                <div class="author-name">Mr. Tunde Fashola</div>
+                <div class="author-role">Orthopedic Patient, Victoria Island</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slider-dots">
+        <div class="dot active" data-i="0"></div>
+        <div class="dot" data-i="1"></div>
+        <div class="dot" data-i="2"></div>
+      </div>
+      <div class="slider-arrows">
+        <button class="arrow-btn prev-btn" aria-label="Previous">‹</button>
+        <button class="arrow-btn next-btn" aria-label="Next">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <h2 class="fade-up">Ready to Take the First Step?</h2>
+    <p class="fade-up stagger-1">Schedule a consultation with one of our experts today — your health journey starts here.</p>
+    <a href="#" class="btn-primary" data-page="contact" style="position:relative;z-index:1">
+      Book Your Appointment →
+    </a>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.3rem">
+          <div class="logo-dot"></div> VitalCare
+        </div>
+        <p>World-class health and wellness care for every stage of life. Serving Lagos and beyond since 2004.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#" data-page="home">Home</a></li>
+          <li><a href="#" data-page="services">Services</a></li>
+          <li><a href="#" data-page="doctors">Doctors</a></li>
+          <li><a href="#" data-page="about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Cardiology</a></li>
+          <li><a href="#">Neurology</a></li>
+          <li><a href="#">Orthopedics</a></li>
+          <li><a href="#">Maternity</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">📍 Victoria Island, Lagos</a></li>
+          <li><a href="#">📞 +234 800 VITALCARE</a></li>
+          <li><a href="#">✉️ hello@vitalcare.ng</a></li>
+          <li><a href="#">🕐 24/7 Emergency Line</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 VitalCare Health & Wellness. All rights reserved.</span>
+      <div>
+        <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SERVICES PAGE
+═══════════════════════════════════════════════ -->
+<div id="services" class="page">
+  <div class="subpage-hero">
+    <div class="breadcrumb">
+      <a href="#" data-page="home">Home</a> <span>›</span> Services
+    </div>
+    <h1>Our Medical Services</h1>
+    <p>A comprehensive suite of specialist healthcare services, delivered with precision, compassion, and cutting-edge technology.</p>
+  </div>
+
+  <section>
+    <div class="section-tag">All Specialties</div>
+    <h2 class="section-title fade-up">Care Across Every<br>Medical Discipline</h2>
+    <div class="services-grid" style="margin-top:3rem">
+      <div class="service-card fade-up stagger-1">
+        <div class="service-icon">🫀</div>
+        <h3>Cardiology</h3>
+        <p>Comprehensive heart care including echocardiography, catheterization, arrhythmia management, and cardiac rehabilitation. Our cardiologists use the latest imaging to catch problems early.</p>
+        <a href="#" class="service-link" data-page="contact">Book Appointment →</a>
+      </div>
+      <div class="service-card fade-up stagger-2">
+        <div class="service-icon">🧠</div>
+        <h3>Neurology</h3>
+        <p>Expert diagnosis and treatment for stroke, epilepsy, migraines, Parkinson's, multiple sclerosis, and other brain and nervous system conditions using state-of-the-art MRI.</p>
+        <a href="#" class="service-link" data-page="contact">Book Appointment →</a>
+      </div>
+      <div class="service-card fade-up stagger-3">
+        <div class="service-icon">🦴</div>
+        <h3>Orthopedics</h3>
+        <p>From sports injuries and fracture repair to minimally invasive joint replacements — our orthopedic surgeons will get you moving again with precision and care.</p>
+        <a href="#" class="service-link" data-page="contact">Book Appointment →</a>
+      </div>
+      <div class="service-card fade-up stagger-1">
+        <div class="service-icon">🤰</div>
+        <h3>Maternity & Women's Health</h3>
+        <p>Prenatal monitoring, high-risk pregnancy management, delivery suites, and postnatal care in a warm, nurturing environment with dedicated midwives and OB specialists.</p>
+        <a href="#" class="service-link" data-page="contact">Book Appointment →</a>
+      </div>
+      <div class="service-card fade-up stagger-2">
+        <div class="service-icon">🦷</div>
+        <h3>Dental & Oral Health</h3>
+        <p>General dentistry, root canals, teeth whitening, implants, braces, and full cosmetic dentistry using digital X-rays and gentle modern techniques.</p>
+        <a href="#" class="service-link" data-page="contact">Book Appointment →</a>
+      </div>
+      <div class="service-card fade-up stagger-3">
+        <div class="service-icon">👁️</div>
+        <h3>Ophthalmology</h3>
+        <p>LASIK vision correction, cataract removal, diabetic eye care, glaucoma treatment, and pediatric eye services with experienced ophthalmologists.</p>
+        <a href="#" class="service-link" data-page="contact">Book Appointment →</a>
+      </div>
+      <div class="service-card fade-up stagger-1">
+        <div class="service-icon">🩸</div>
+        <h3>Haematology</h3>
+        <p>Diagnosis and management of blood disorders including anemia, sickle cell disease, clotting disorders, and hematologic cancers with personalized care plans.</p>
+        <a href="#" class="service-link" data-page="contact">Book Appointment →</a>
+      </div>
+      <div class="service-card fade-up stagger-2">
+        <div class="service-icon">🧫</div>
+        <h3>Oncology</h3>
+        <p>Comprehensive cancer screening, diagnosis, chemotherapy, radiation therapy, and survivorship programs — we walk beside you every step of your cancer journey.</p>
+        <a href="#" class="service-link" data-page="contact">Book Appointment →</a>
+      </div>
+      <div class="service-card fade-up stagger-3">
+        <div class="service-icon">🏃</div>
+        <h3>Physiotherapy & Rehab</h3>
+        <p>Evidence-based physical therapy, post-surgical rehabilitation, sports recovery, stroke rehabilitation, and pain management programs designed for real results.</p>
+        <a href="#" class="service-link" data-page="contact">Book Appointment →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <h2>Not Sure Which Specialist?</h2>
+    <p>Book a general consultation and our intake team will direct you to the right expert.</p>
+    <a href="#" class="btn-primary" data-page="contact" style="position:relative;z-index:1">Start Here →</a>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.3rem"><div class="logo-dot"></div> VitalCare</div>
+        <p>World-class health and wellness care for every stage of life.</p>
+      </div>
+      <div class="footer-col"><h4>Quick Links</h4><ul>
+        <li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="services">Services</a></li>
+        <li><a href="#" data-page="doctors">Doctors</a></li><li><a href="#" data-page="about">About</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Emergency</h4><ul>
+        <li><a href="#">📞 +234 800 EMERGENCY</a></li>
+        <li><a href="#">🕐 24/7 Available</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Location</h4><ul>
+        <li><a href="#">📍 Victoria Island, Lagos</a></li>
+        <li><a href="#">📍 Wuse II, Abuja</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 VitalCare Health & Wellness.</span>
+      <a href="#" data-page="contact">Book an Appointment</a>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     DOCTORS PAGE
+═══════════════════════════════════════════════ -->
+<div id="doctors" class="page">
+  <div class="subpage-hero">
+    <div class="breadcrumb"><a href="#" data-page="home">Home</a> <span>›</span> Our Doctors</div>
+    <h1>Meet Our Physicians</h1>
+    <p>Internationally trained, locally committed. Our team of specialists brings decades of combined expertise to your care.</p>
+  </div>
+
+  <section>
+    <div class="section-tag">Our Medical Team</div>
+    <h2 class="section-title fade-up">Expertise You Can Trust</h2>
+    <div class="team-page-grid">
+      <div class="team-card-lg fade-up stagger-1">
+        <div class="team-avatar-lg">👨‍⚕️</div>
+        <div class="team-info-lg">
+          <h3>Dr. Chukwuemeka Osei</h3>
+          <div class="spec">Cardiologist · 18 yrs exp.</div>
+          <p>Trained at Johns Hopkins and the Lagos University Teaching Hospital. Specialises in interventional cardiology and heart failure management.</p>
+          <div class="social-links">
+            <a class="social-link" href="#">in</a>
+            <a class="social-link" href="#">✉</a>
+            <a class="social-link" href="#" data-page="contact">📅</a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card-lg fade-up stagger-2">
+        <div class="team-avatar-lg" style="background:linear-gradient(135deg,#0F4C5C,#FF6B6B)">👩‍⚕️</div>
+        <div class="team-info-lg">
+          <h3>Dr. Amara Nwosu</h3>
+          <div class="spec">Neurologist · 14 yrs exp.</div>
+          <p>A Fellow of the West African College of Physicians with advanced training in epilepsy and stroke management from the UK.</p>
+          <div class="social-links">
+            <a class="social-link" href="#">in</a>
+            <a class="social-link" href="#">✉</a>
+            <a class="social-link" href="#" data-page="contact">📅</a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card-lg fade-up stagger-3">
+        <div class="team-avatar-lg" style="background:linear-gradient(135deg,#1a6b4a,#00BCD4)">👨‍⚕️</div>
+        <div class="team-info-lg">
+          <h3>Dr. Babatunde Adeyemi</h3>
+          <div class="spec">Orthopedic Surgeon · 22 yrs exp.</div>
+          <p>Pioneer of minimally invasive joint replacement surgery in Nigeria. Board-certified by the Nigerian Orthopedic Association.</p>
+          <div class="social-links">
+            <a class="social-link" href="#">in</a>
+            <a class="social-link" href="#">✉</a>
+            <a class="social-link" href="#" data-page="contact">📅</a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card-lg fade-up stagger-1">
+        <div class="team-avatar-lg" style="background:linear-gradient(135deg,#4a0080,#FF6B6B)">👩‍⚕️</div>
+        <div class="team-info-lg">
+          <h3>Dr. Ngozi Obiechina</h3>
+          <div class="spec">OB/Gynecologist · 16 yrs exp.</div>
+          <p>Award-winning maternal-fetal medicine specialist with expertise in high-risk pregnancies and reproductive endocrinology.</p>
+          <div class="social-links">
+            <a class="social-link" href="#">in</a>
+            <a class="social-link" href="#">✉</a>
+            <a class="social-link" href="#" data-page="contact">📅</a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card-lg fade-up stagger-2">
+        <div class="team-avatar-lg" style="background:linear-gradient(135deg,#2d5a6b,#4DD0E1)">👨‍⚕️</div>
+        <div class="team-info-lg">
+          <h3>Dr. Ifeanyi Eze</h3>
+          <div class="spec">Oncologist · 12 yrs exp.</div>
+          <p>Clinical oncologist specialising in breast and colorectal cancers, with research published in the Lancet Oncology journal.</p>
+          <div class="social-links">
+            <a class="social-link" href="#">in</a>
+            <a class="social-link" href="#">✉</a>
+            <a class="social-link" href="#" data-page="contact">📅</a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card-lg fade-up stagger-3">
+        <div class="team-avatar-lg" style="background:linear-gradient(135deg,#5c2000,#FFD700)">👩‍⚕️</div>
+        <div class="team-info-lg">
+          <h3>Dr. Kemi Adesanya</h3>
+          <div class="spec">Ophthalmologist · 11 yrs exp.</div>
+          <p>LASIK and cataract surgery specialist with over 4,000 successful procedures and training from Moorfields Eye Hospital, London.</p>
+          <div class="social-links">
+            <a class="social-link" href="#">in</a>
+            <a class="social-link" href="#">✉</a>
+            <a class="social-link" href="#" data-page="contact">📅</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <h2>Book a Consultation Today</h2>
+    <p>Select your preferred doctor and schedule your appointment in minutes.</p>
+    <a href="#" class="btn-primary" data-page="contact" style="position:relative;z-index:1">Schedule Now →</a>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.3rem"><div class="logo-dot"></div> VitalCare</div>
+        <p>World-class health and wellness care for every stage of life.</p>
+      </div>
+      <div class="footer-col"><h4>Quick Links</h4><ul>
+        <li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="services">Services</a></li>
+        <li><a href="#" data-page="doctors">Doctors</a></li><li><a href="#" data-page="about">About</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="#">📞 +234 800 VITALCARE</a></li>
+        <li><a href="#">✉️ hello@vitalcare.ng</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hours</h4><ul>
+        <li><a href="#">Mon–Fri: 7AM–10PM</a></li>
+        <li><a href="#">Sat–Sun: 8AM–6PM</a></li>
+        <li><a href="#">Emergency: 24/7</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 VitalCare Health & Wellness.</span>
+      <a href="#" data-page="contact">Book an Appointment</a>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     ABOUT PAGE
+═══════════════════════════════════════════════ -->
+<div id="about" class="page">
+  <div class="subpage-hero">
+    <div class="breadcrumb"><a href="#" data-page="home">Home</a> <span>›</span> About Us</div>
+    <h1>About VitalCare</h1>
+    <p>Two decades of healing, innovation, and unwavering commitment to the communities we serve.</p>
+  </div>
+
+  <section>
+    <div class="about-split">
+      <div class="about-visual-stack fade-left">
+        <div class="about-img-main">🏥</div>
+        <div class="about-img-accent">❤️</div>
+        <div class="about-year-badge">
+          <strong>2004</strong>
+          <span>Founded</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-tag">Our Story</div>
+        <h2 class="section-title">More Than a Hospital —<br>A Health Community</h2>
+        <p>VitalCare was founded in 2004 by a small group of physicians who shared a simple but powerful belief: every Nigerian deserves world-class healthcare, regardless of their background or income level.</p>
+        <p>What started as a 20-bed clinic in Surulere has grown into a network of three full-service hospitals across Lagos and Abuja, serving over 12,000 patients annually with more than 48 specialist consultants.</p>
+        <p>We've pioneered minimally invasive surgery in Nigeria, established the first dedicated stroke unit in private healthcare in Lagos, and launched free annual screening camps that have reached over 50,000 underserved Nigerians.</p>
+        <div class="values-grid">
+          <div class="value-item fade-up stagger-1">
+            <strong>🎯 Our Mission</strong>
+            <span>To deliver compassionate, evidence-based healthcare that transforms lives.</span>
+          </div>
+          <div class="value-item fade-up stagger-2">
+            <strong>👁 Our Vision</strong>
+            <span>A Nigeria where quality healthcare is the norm, not the privilege.</span>
+          </div>
+          <div class="value-item fade-up stagger-3">
+            <strong>🛡 Integrity</strong>
+            <span>Transparent, honest practice in everything we do.</span>
+          </div>
+          <div class="value-item fade-up stagger-4">
+            <strong>🌱 Innovation</strong>
+            <span>Continuously adopting the latest medical advances for better outcomes.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-band">
+    <div class="stat-box fade-up"><div class="num"><span>3</span></div><p>Hospital Locations</p></div>
+    <div class="stat-box fade-up stagger-1"><div class="num"><span>48</span>+</div><p>Specialist Consultants</p></div>
+    <div class="stat-box fade-up stagger-2"><div class="num"><span>50K</span>+</div><p>Free Screenings Done</p></div>
+    <div class="stat-box fade-up stagger-3"><div class="num"><span>20</span></div><p>Years of Service</p></div>
+  </div>
+
+  <section class="services-bg">
+    <div class="section-tag">Our Facilities</div>
+    <h2 class="section-title fade-up">Built for Excellence</h2>
+    <div class="services-grid">
+      <div class="service-card fade-up stagger-1">
+        <div class="service-icon">🔬</div>
+        <h3>Advanced Diagnostics</h3>
+        <p>Our in-house laboratory and imaging centre offers 3T MRI, 128-slice CT, digital X-ray, and same-day results for most tests.</p>
+      </div>
+      <div class="service-card fade-up stagger-2">
+        <div class="service-icon">⚕️</div>
+        <h3>Surgical Theatres</h3>
+        <p>Six laminar-flow theatres including a robotic surgery suite, equipped for minimally invasive procedures across all specialties.</p>
+      </div>
+      <div class="service-card fade-up stagger-3">
+        <div class="service-icon">🛏️</div>
+        <h3>Patient Wards</h3>
+        <p>Private, semi-private, and standard wards designed for comfort and recovery, with 24-hour nursing care and en-suite facilities.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <h2>Join the VitalCare Family</h2>
+    <p>Whether as a patient or a medical professional — we welcome you.</p>
+    <a href="#" class="btn-primary" data-page="contact" style="position:relative;z-index:1">Get in Touch →</a>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.3rem"><div class="logo-dot"></div> VitalCare</div>
+        <p>World-class health and wellness care for every stage of life.</p>
+      </div>
+      <div class="footer-col"><h4>Navigate</h4><ul>
+        <li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="services">Services</a></li>
+        <li><a href="#" data-page="doctors">Doctors</a></li><li><a href="#" data-page="contact">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="#">📞 +234 800 VITALCARE</a></li>
+        <li><a href="#">✉️ hello@vitalcare.ng</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Socials</h4><ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Twitter/X</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 VitalCare Health & Wellness.</span>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     CONTACT / BOOKING PAGE
+═══════════════════════════════════════════════ -->
+<div id="contact" class="page">
+  <div class="subpage-hero">
+    <div class="breadcrumb"><a href="#" data-page="home">Home</a> <span>›</span> Book Appointment</div>
+    <h1>Book an Appointment</h1>
+    <p>Fill out the form and our team will confirm your slot within 30 minutes. Walk-ins are also always welcome.</p>
+  </div>
+
+  <section>
+    <div class="booking-grid">
+      <div class="booking-info">
+        <div class="section-tag">Get In Touch</div>
+        <h3 class="fade-up" style="font-family:var(--font-display);font-size:1.6rem;margin-bottom:1.5rem">We're Here When<br>You Need Us</h3>
+
+        <div class="contact-item fade-up stagger-1">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Main Hospital</div>
+            <div class="contact-value">14 Ozumba Mbadiwe Avenue,<br>Victoria Island, Lagos</div>
+          </div>
+        </div>
+        <div class="contact-item fade-up stagger-2">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value">+234 800 VITALCARE<br>+234 01 740 0000</div>
+          </div>
+        </div>
+        <div class="contact-item fade-up stagger-3">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">appointments@vitalcare.ng</div>
+          </div>
+        </div>
+        <div class="contact-item fade-up stagger-4">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <div class="contact-label">Hours</div>
+            <div class="contact-value">Mon–Fri: 7AM–10PM<br>Sat–Sun: 8AM–6PM<br>Emergency: 24 / 7</div>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;padding:1.5rem;background:var(--sage);border-radius:var(--radius);border-left:4px solid var(--cyan)" class="fade-up">
+          <strong style="color:var(--deep-teal);display:block;margin-bottom:0.5rem">🚑 Medical Emergency?</strong>
+          <span style="font-size:0.9rem;color:var(--text-mid)">Please call our 24/7 emergency line immediately: <strong>+234 800 911 0000</strong></span>
+        </div>
+      </div>
+
+      <div class="booking-form fade-up stagger-2">
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:1.5rem;color:var(--text-dark)">Schedule Your Visit</h3>
+        <form id="bookingForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Emeka" required />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Okafor" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+234 800 000 0000" required />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="you@email.com" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Select Department</label>
+            <select required>
+              <option value="">Choose a specialty...</option>
+              <option>Cardiology</option>
+              <option>Neurology</option>
+              <option>Orthopedics</option>
+              <option>Maternity & Women's Health</option>
+              <option>Dental Care</option>
+              <option>Ophthalmology</option>
+              <option>Oncology</option>
+              <option>General Consultation</option>
+              <option>Physiotherapy & Rehab</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date" required />
+            </div>
+            <div class="form-group">
+              <label>Preferred Time</label>
+              <select>
+                <option>8:00 AM</option><option>9:00 AM</option>
+                <option>10:00 AM</option><option>11:00 AM</option>
+                <option>12:00 PM</option><option>2:00 PM</option>
+                <option>3:00 PM</option><option>4:00 PM</option>
+                <option>5:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Briefly Describe Your Concern (Optional)</label>
+            <textarea placeholder="Tell us a little about your symptoms or the reason for your visit..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Confirm My Appointment →</button>
+        </form>
+        <div class="form-success">
+          <div class="success-icon">✅</div>
+          <h3 style="color:var(--deep-teal);font-family:var(--font-display)">Appointment Requested!</h3>
+          <p style="color:var(--text-light);margin-top:0.5rem">Our team will call you within 30 minutes to confirm your slot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.3rem"><div class="logo-dot"></div> VitalCare</div>
+        <p>World-class health and wellness care for every stage of life.</p>
+      </div>
+      <div class="footer-col"><h4>Navigate</h4><ul>
+        <li><a href="#" data-page="home">Home</a></li><li><a href="#" data-page="services">Services</a></li>
+        <li><a href="#" data-page="doctors">Doctors</a></li><li><a href="#" data-page="about">About</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="#">📞 +234 800 VITALCARE</a></li>
+        <li><a href="#">✉️ hello@vitalcare.ng</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Emergency</h4><ul>
+        <li><a href="#" style="color:var(--coral)">🚑 +234 800 911 0000</a></li>
+        <li><a href="#">Available 24/7</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 VitalCare Health & Wellness.</span>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </footer>
+</div>
+
+<script src="main.js"></script>
+<script>
+  // Additional inline: connect form submit
+  document.getElementById('bookingForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.querySelector('.form-success').style.display = 'block';
+    setTimeout(() => {
+      this.style.display = 'block';
+      document.querySelector('.form-success').style.display = 'none';
+      this.reset();
+    }, 4000);
+  });
+
+  // Nav links re-bind (for footer links etc)
+  document.querySelectorAll('[data-page]').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      const pageId = this.dataset.page;
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const page = document.getElementById(pageId);
+      if (page) { page.classList.add('active'); page.classList.add('page-enter'); }
+      const navLink = document.querySelector(`.nav-links a[data-page="${pageId}"]`);
+      if (navLink) navLink.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelector('.nav-links')?.classList.remove('open');
+      document.querySelector('.hamburger')?.classList.remove('open');
+      setTimeout(() => {
+        document.querySelectorAll('.fade-up, .fade-left, .why-list li').forEach(el => {
+          const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+          }, { threshold: 0.1 });
+          obs.observe(el);
+        });
+      }, 120);
+    });
+  });
+
+  // Slider dots — re-grab
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.addEventListener('click', () => {
+      document.querySelector('.testimonials-track').style.transform = `translateX(-${i * 100}%)`;
+      document.querySelectorAll('.dot').forEach((x, j) => x.classList.toggle('active', j === i));
+    });
+  });
+</script>
+</body>
+</html>
