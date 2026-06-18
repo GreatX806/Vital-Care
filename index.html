@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VitalCare Health & Wellness | World-Class Healthcare in Lagos</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── HERO ── */
+.hero{
+  position:relative;width:100%;height:100vh;min-height:680px;
+  background:var(--teal);overflow:hidden;display:flex;align-items:center;
+}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(10,46,54,.88) 40%,rgba(0,188,212,.06) 100%);
+}
+.hero-morph{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 72% 42%,rgba(0,188,212,.18),transparent 65%),
+             radial-gradient(ellipse 55% 70% at 18% 72%,rgba(0,76,94,.55),transparent 60%);
+  animation:morphBg 14s ease-in-out infinite alternate;
+}
+@keyframes morphBg{
+  0%{opacity:.8}50%{opacity:1}100%{opacity:.85}
+}
+/* ripple rings */
+.ring{
+  position:absolute;border-radius:50%;border:1px solid rgba(0,188,212,.2);
+  animation:ringOut var(--d,5s) ease-out infinite var(--dl,0s);
+}
+@keyframes ringOut{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.8);opacity:0}}
+/* floating icons */
+.flt{position:absolute;font-size:2rem;opacity:.11;animation:fltUp var(--d,9s) ease-in-out infinite var(--dl,0s)}
+@keyframes fltUp{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(8deg)}}
+
+.hero-content{position:relative;z-index:3;padding:0 4rem;max-width:680px}
+/* entrance animation */
+.hero-in{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.hero-in.show{opacity:1;transform:none}
+.d1h{transition-delay:.1s}.d2h{transition-delay:.25s}.d3h{transition-delay:.4s}.d4h{transition-delay:.55s}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:1.3rem;
+}
+.eyebrow::before{content:'';width:28px;height:2px;background:var(--cyan)}
+.hero-title{
+  font-family:var(--font-d);font-size:clamp(2.6rem,5vw,5rem);
+  font-weight:700;color:#fff;line-height:1.08;margin-bottom:1.4rem;letter-spacing:-.025em;
+}
+.hero-title em{font-style:italic;color:var(--cyan-soft)}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,.72);max-width:480px;line-height:1.75;margin-bottom:2.2rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+
+/* ECG line */
+.ecg-wrap{position:absolute;bottom:9rem;right:0;width:52%;height:110px;overflow:hidden;opacity:.55;z-index:2}
+.ecg-wrap svg{width:200%;height:100%}
+.ecg-path{
+  fill:none;stroke:var(--cyan);stroke-width:2.5;
+  stroke-dasharray:3200;stroke-dashoffset:3200;
+  animation:ecgDraw 4.5s linear infinite;
+  filter:drop-shadow(0 0 5px var(--cyan));
+}
+@keyframes ecgDraw{0%{stroke-dashoffset:3200}100%{stroke-dashoffset:-3200}}
+
+/* stats bar at bottom of hero */
+.hero-stats{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  background:rgba(10,46,54,.82);backdrop-filter:blur(16px);
+  border-top:1px solid rgba(0,188,212,.15);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding:1.8rem 4rem;gap:1rem;
+}
+.hs-item{text-align:center}
+.hs-num{font-family:var(--font-d);font-size:2rem;font-weight:700;color:#fff;line-height:1}
+.hs-num span{color:var(--cyan)}
+.hs-label{font-size:.73rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-top:.3rem}
+@media(max-width:900px){
+  .hero-content{padding:0 1.5rem}
+  .hero-stats{grid-template-columns:1fr 1fr;padding:1.4rem 1.5rem}
+  .ecg-wrap{display:none}
+}
+
+/* services bg */
+.sec-sage{background:var(--sage)}
+
+/* why circle */
+.why-vis{position:relative;height:520px;display:flex;align-items:center;justify-content:center}
+.why-ring{
+  width:300px;height:300px;border-radius:50%;
+  background:linear-gradient(135deg,var(--cyan) 0%,var(--teal) 100%);
+  display:flex;align-items:center;justify-content:center;font-size:5.5rem;
+  box-shadow:0 0 0 30px rgba(0,188,212,.07),0 0 0 60px rgba(0,188,212,.04);
+  animation:breathe 5s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{box-shadow:0 0 0 30px rgba(0,188,212,.07),0 0 0 60px rgba(0,188,212,.04)}
+  50%{box-shadow:0 0 0 45px rgba(0,188,212,.11),0 0 0 90px rgba(0,188,212,.06)}
+}
+.why-badge{
+  position:absolute;background:var(--pure);border-radius:var(--rs);
+  padding:1rem 1.3rem;box-shadow:var(--sh);display:flex;align-items:center;gap:.8rem;
+  animation:floatBadge 4s ease-in-out infinite;
+}
+@keyframes floatBadge{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.why-badge.b1{top:50px;right:-10px;animation-delay:.5s}
+.why-badge.b2{bottom:70px;left:-10px;animation-delay:1.2s}
+.why-badge.b3{bottom:170px;right:-35px;animation-delay:2s}
+.bi{font-size:1.5rem}
+.bt strong{display:block;font-size:.95rem;font-weight:700;color:var(--text)}
+.bt span{font-size:.73rem;color:var(--text-light)}
+@media(max-width:900px){.why-vis{height:340px}.why-ring{width:220px;height:220px;font-size:4rem}}
+
+/* slider */
+.testi-slider{margin-top:3rem;overflow:hidden}
+.testi-track{display:flex;transition:transform .6s var(--ease)}
+.testi-slide{min-width:100%;padding:0 .5rem}
+.slider-dots{display:flex;gap:.6rem;justify-content:center;margin-top:1.5rem}
+.testi-dot{
+  width:9px;height:9px;border-radius:50%;background:var(--text-light);cursor:pointer;transition:.3s;
+}
+.testi-dot.active{background:var(--cyan);width:22px;border-radius:5px}
+.slider-arrows{display:flex;gap:.8rem;justify-content:center;margin-top:1rem}
+.arr-btn{
+  width:44px;height:44px;border-radius:50%;border:1.5px solid var(--cyan);
+  background:transparent;color:var(--cyan);font-size:1.1rem;
+  cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;
+}
+.arr-btn:hover{background:var(--cyan);color:#fff}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo"><div class="loader-dot"></div>VitalCare</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><div class="nav-dot"></div>VitalCare</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="doctors.html">Doctors</a></li>
+    <li><a href="hospitals.html">Hospitals</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Appointment</a></li>
+  </ul>
+  <div class="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-overlay"></div>
+  <div class="hero-morph"></div>
+
+  <!-- Ripple rings -->
+  <div class="ring" style="width:300px;height:300px;top:15%;right:18%;--d:5s;--dl:0s"></div>
+  <div class="ring" style="width:200px;height:200px;top:45%;right:28%;--d:7s;--dl:2s"></div>
+  <div class="ring" style="width:450px;height:450px;top:8%;right:8%;--d:9s;--dl:4s"></div>
+
+  <!-- Floating medical icons -->
+  <div class="flt" style="top:14%;left:72%;--d:9s;--dl:0s">🩺</div>
+  <div class="flt" style="top:55%;left:82%;--d:11s;--dl:2.5s">💊</div>
+  <div class="flt" style="top:28%;left:60%;--d:8s;--dl:1s">🧬</div>
+  <div class="flt" style="top:72%;left:68%;--d:10s;--dl:3.5s">🏥</div>
+
+  <div class="hero-content">
+    <div class="eyebrow hero-in d1h">Trusted Healthcare Since 2004</div>
+    <h1 class="hero-title hero-in d2h">Your Health,<br><em>Our Priority</em></h1>
+    <p class="hero-sub hero-in d3h">World-class medical care with cutting-edge technology and compassionate professionals — all dedicated to your well-being across Lagos and Abuja.</p>
+    <div class="hero-btns hero-in d4h">
+      <a href="contact.html" class="btn btn-primary">Book Appointment →</a>
+      <a href="services.html" class="btn btn-outline">Explore Services</a>
+    </div>
+  </div>
+
+  <!-- ECG line -->
+  <div class="ecg-wrap">
+    <svg viewBox="0 0 1200 110" preserveAspectRatio="none">
+      <path class="ecg-path" d="M0,55 L80,55 L90,55 L96,46 L100,85 L106,2 L112,72 L118,55 L200,55
+        L280,55 L290,55 L296,46 L300,85 L306,2 L312,72 L318,55 L400,55
+        L480,55 L490,55 L496,46 L500,85 L506,2 L512,72 L518,55 L600,55
+        L680,55 L690,55 L696,46 L700,85 L706,2 L712,72 L718,55 L800,55
+        L880,55 L890,55 L896,46 L900,85 L906,2 L912,72 L918,55 L1000,55
+        L1080,55 L1090,55 L1096,46 L1100,85 L1106,2 L1112,72 L1118,55 L1200,55"/>
+    </svg>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="hero-stats">
+    <div class="hs-item">
+      <div class="hs-num"><span data-count="12" data-suffix="K+">0</span></div>
+      <div class="hs-label">Patients Treated</div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-num"><span data-count="48" data-suffix="+">0</span></div>
+      <div class="hs-label">Specialist Doctors</div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-num"><span data-count="20" data-suffix=" yrs">0</span></div>
+      <div class="hs-label">Years of Excellence</div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-num"><span data-count="98" data-suffix="%">0</span></div>
+      <div class="hs-label">Patient Satisfaction</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stat-box reveal"><div class="stat-n"><span>24</span>/7</div><p>Emergency Care</p></div>
+  <div class="stat-box reveal d1"><div class="stat-n"><span>15</span>+</div><p>Medical Specialties</p></div>
+  <div class="stat-box reveal d2"><div class="stat-n"><span>3</span></div><p>Hospital Locations</p></div>
+  <div class="stat-box reveal d3"><div class="stat-n">₦<span>0</span></div><p>First Consultation Fee</p></div>
+</div>
+
+<!-- SERVICES PREVIEW -->
+<section class="sec sec-sage">
+  <div class="tag">What We Offer</div>
+  <h2 class="h1 reveal">Comprehensive Care<br>for Every Need</h2>
+  <p class="sub reveal d1">From preventive screenings to advanced surgery — we're with you at every stage of your health journey.</p>
+  <div class="grid-3" style="margin-top:3rem">
+    <div class="svc-card reveal d1">
+      <div class="svc-icon">🫀</div>
+      <h3>Cardiology</h3>
+      <p>Advanced heart care with echocardiography, stress tests, and catheterisation by Nigeria's leading cardiologists.</p>
+      <a href="services.html" class="svc-link">Learn more →</a>
+    </div>
+    <div class="svc-card reveal d2">
+      <div class="svc-icon">🧠</div>
+      <h3>Neurology</h3>
+      <p>Expert diagnosis for brain, spine, and nervous system conditions using state-of-the-art 3T MRI imaging.</p>
+      <a href="services.html" class="svc-link">Learn more →</a>
+    </div>
+    <div class="svc-card reveal d3">
+      <div class="svc-icon">🦴</div>
+      <h3>Orthopedics</h3>
+      <p>Joint replacement, sports injury repair, and spinal surgery with minimally invasive robotic-assisted techniques.</p>
+      <a href="services.html" class="svc-link">Learn more →</a>
+    </div>
+    <div class="svc-card reveal d1">
+      <div class="svc-icon">🤰</div>
+      <h3>Maternity Care</h3>
+      <p>Compassionate prenatal, delivery, and postnatal support for mother and child in a warm, safe environment.</p>
+      <a href="services.html" class="svc-link">Learn more →</a>
+    </div>
+    <div class="svc-card reveal d2">
+      <div class="svc-icon">👁️</div>
+      <h3>Ophthalmology</h3>
+      <p>LASIK correction, cataract surgery, glaucoma care, and retinal services with advanced laser technology.</p>
+      <a href="services.html" class="svc-link">Learn more →</a>
+    </div>
+    <div class="svc-card reveal d3">
+      <div class="svc-icon">🏃</div>
+      <h3>Physiotherapy</h3>
+      <p>Evidence-based rehab, post-surgical recovery, sports therapy, and chronic pain management programmes.</p>
+      <a href="services.html" class="svc-link">Learn more →</a>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:3rem">
+    <a href="services.html" class="btn btn-dark">View All Services →</a>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="sec">
+  <div class="grid-2">
+    <div class="why-vis reveal-l">
+      <div class="why-ring">🏥</div>
+      <div class="why-badge b1">
+        <div class="bi">🏆</div>
+        <div class="bt"><strong>#1 Rated</strong><span>Hospital in Lagos 2024</span></div>
+      </div>
+      <div class="why-badge b2">
+        <div class="bi">⚡</div>
+        <div class="bt"><strong>&lt;15 min</strong><span>Average wait time</span></div>
+      </div>
+      <div class="why-badge b3">
+        <div class="bi">🛡️</div>
+        <div class="bt"><strong>ISO 9001</strong><span>Certified Quality</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="tag">Why Choose Us</div>
+      <h2 class="h1 reveal">Excellence in Every<br>Detail of Care</h2>
+      <p class="sub reveal d1">We go beyond treating illness — we build lasting health partnerships.</p>
+      <ul class="feat-list">
+        <li class="reveal d1">
+          <div class="feat-chk">✓</div>
+          <div><h4>Board-Certified Specialists</h4><p>All physicians are internationally trained and continuously certified in their fields.</p></div>
+        </li>
+        <li class="reveal d2">
+          <div class="feat-chk">✓</div>
+          <div><h4>Advanced Medical Technology</h4><p>3T MRI, 128-slice CT, robotic surgery — we invest in the best tools for your care.</p></div>
+        </li>
+        <li class="reveal d3">
+          <div class="feat-chk">✓</div>
+          <div><h4>Patient-First Philosophy</h4><p>Every care plan is tailored to the individual. You're never a case number here.</p></div>
+        </li>
+        <li class="reveal d4">
+          <div class="feat-chk">✓</div>
+          <div><h4>Affordable & Transparent Pricing</h4><p>Clear billing, flexible payment plans, and HMO partnerships available.</p></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS PREVIEW -->
+<section class="sec" style="background:var(--teal)">
+  <div class="tag">Meet the Team</div>
+  <h2 class="h1 reveal" style="color:#fff">Our Expert Physicians</h2>
+  <p class="sub reveal d1" style="color:rgba(255,255,255,.6)">Dedicated specialists bringing world-class care with a human touch.</p>
+  <div class="grid-4" style="margin-top:3rem">
+    <div class="doc-card reveal d1">
+      <img class="doc-img" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Chukwuemeka Osei - Cardiologist" loading="lazy">
+      <div class="doc-body">
+        <h3>Dr. Chukwuemeka Osei</h3>
+        <div class="doc-spec">Cardiologist</div>
+        <div class="doc-rating"><span class="stars">★★★★★</span> 4.9 (312 reviews)</div>
+        <div class="doc-avail">Mon – Fri</div>
+        <a href="doctors.html" class="doc-btn">View Profile</a>
+      </div>
+    </div>
+    <div class="doc-card reveal d2">
+      <img class="doc-img" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=500&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Amara Nwosu - Neurologist" loading="lazy">
+      <div class="doc-body">
+        <h3>Dr. Amara Nwosu</h3>
+        <div class="doc-spec">Neurologist</div>
+        <div class="doc-rating"><span class="stars">★★★★★</span> 4.8 (274 reviews)</div>
+        <div class="doc-avail">Tue – Sat</div>
+        <a href="doctors.html" class="doc-btn">View Profile</a>
+      </div>
+    </div>
+    <div class="doc-card reveal d3">
+      <img class="doc-img" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Babatunde Adeyemi - Orthopedic Surgeon" loading="lazy">
+      <div class="doc-body">
+        <h3>Dr. Babatunde Adeyemi</h3>
+        <div class="doc-spec">Orthopedic Surgeon</div>
+        <div class="doc-rating"><span class="stars">★★★★★</span> 5.0 (198 reviews)</div>
+        <div class="doc-avail">Mon – Thu</div>
+        <a href="doctors.html" class="doc-btn">View Profile</a>
+      </div>
+    </div>
+    <div class="doc-card reveal d4">
+      <img class="doc-img" src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=500&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Ngozi Obiechina - OB/GYN" loading="lazy">
+      <div class="doc-body">
+        <h3>Dr. Ngozi Obiechina</h3>
+        <div class="doc-spec">OB / Gynecologist</div>
+        <div class="doc-rating"><span class="stars">★★★★★</span> 4.9 (341 reviews)</div>
+        <div class="doc-avail">Wed – Sun</div>
+        <a href="doctors.html" class="doc-btn">View Profile</a>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:3rem">
+    <a href="doctors.html" class="btn btn-primary">Meet All Doctors →</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec sec-sage">
+  <div class="tag">Patient Stories</div>
+  <h2 class="h1 reveal">Voices of Our Community</h2>
+  <div class="testi-slider">
+    <div class="testi-track">
+      <div class="testi-slide">
+        <div class="testi-card" style="max-width:740px;margin:0 auto">
+          <p class="testi-text">"After my cardiac procedure at VitalCare, I was back on my feet in three weeks. The care I received — from diagnosis to recovery — was exceptional. Dr. Osei is truly gifted, and the nursing staff made me feel at home throughout my stay."</p>
+          <div class="testi-author">
+            <img class="testi-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&auto=format&fit=crop&crop=faces" alt="Mr. Emeka Ihejirika">
+            <div><div class="testi-name">Mr. Emeka Ihejirika</div><div class="testi-role">Cardiac Patient · Lagos Island</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-slide">
+        <div class="testi-card" style="max-width:740px;margin:0 auto">
+          <p class="testi-text">"I gave birth to my twins here and the maternity ward exceeded every expectation. The doctors were attentive, the facility spotless, and they walked with me through every anxiety. I cannot recommend VitalCare enough to any expectant mother."</p>
+          <div class="testi-author">
+            <img class="testi-avatar" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80&auto=format&fit=crop&crop=faces" alt="Mrs. Aisha Mohammed">
+            <div><div class="testi-name">Mrs. Aisha Mohammed</div><div class="testi-role">Maternity Patient · Abuja</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-slide">
+        <div class="testi-card" style="max-width:740px;margin:0 auto">
+          <p class="testi-text">"My knee replacement surgery was seamless. Within six months I was hiking again — something I hadn't done in years. The physiotherapy team at VitalCare is incredible. They push you, believe in you, and celebrate every milestone with you."</p>
+          <div class="testi-author">
+            <img class="testi-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80&auto=format&fit=crop&crop=faces" alt="Mr. Tunde Fashola">
+            <div><div class="testi-name">Mr. Tunde Fashola</div><div class="testi-role">Orthopedic Patient · Victoria Island</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slider-dots">
+      <div class="testi-dot active"></div>
+      <div class="testi-dot"></div>
+      <div class="testi-dot"></div>
+    </div>
+    <div class="slider-arrows">
+      <button class="arr-btn testi-prev">‹</button>
+      <button class="arr-btn testi-next">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2 class="reveal">Ready to Take the First Step?</h2>
+  <p class="reveal d1">Schedule a consultation with one of our experts today — your health journey starts here.</p>
+  <a href="contact.html" class="btn btn-primary reveal d2">Book Your Appointment →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div class="nav-logo" style="font-size:1.3rem"><div class="nav-dot"></div>VitalCare</div>
+      <p>World-class health and wellness care for every stage of life. Serving Lagos and Abuja since 2004.</p>
+    </div>
+    <div class="ft-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="doctors.html">Doctors</a></li>
+      <li><a href="hospitals.html">Hospitals</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Services</h4><ul>
+      <li><a href="services.html">Cardiology</a></li>
+      <li><a href="services.html">Neurology</a></li>
+      <li><a href="services.html">Orthopedics</a></li>
+      <li><a href="services.html">Maternity</a></li>
+      <li><a href="services.html">Oncology</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Contact</h4><ul>
+      <li><a href="#">📍 Victoria Island, Lagos</a></li>
+      <li><a href="#">📞 +234 800 VITALCARE</a></li>
+      <li><a href="#">✉️ hello@vitalcare.ng</a></li>
+      <li><a href="#">🚑 Emergency: 24 / 7</a></li>
+    </ul></div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2024 VitalCare Health & Wellness. All rights reserved.</span>
+    <div><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

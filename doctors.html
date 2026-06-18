@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Doctors | VitalCare Health & Wellness</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.doc-hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 80% 50%,rgba(0,188,212,.18),transparent),
+             url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=80&auto=format&fit=crop') center/cover no-repeat;
+  opacity:.18;
+}
+/* filter bar */
+.filter-bar{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.filter-btn{
+  padding:.5rem 1.3rem;border-radius:50px;border:1.5px solid #cde8e8;
+  background:var(--pure);color:var(--text-mid);font-size:.83rem;font-weight:600;
+  cursor:pointer;transition:all .3s;font-family:var(--font-b);
+}
+.filter-btn.active,.filter-btn:hover{background:var(--cyan);border-color:var(--cyan);color:var(--teal)}
+
+/* big doctor card */
+.doc-full{
+  background:var(--pure);border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);transition:all .4s var(--ease);display:flex;flex-direction:column;
+}
+.doc-full:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.14)}
+.doc-full-img{width:100%;height:300px;object-fit:cover;object-position:top center;display:block}
+.doc-full-body{padding:1.8rem;flex:1;display:flex;flex-direction:column}
+.doc-full-body h3{font-family:var(--font-d);font-size:1.2rem;color:var(--text);margin-bottom:.3rem}
+.doc-spec{color:var(--cyan);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem}
+.doc-exp{font-size:.8rem;color:var(--text-light);margin-bottom:.8rem}
+.doc-full-body p{font-size:.87rem;color:var(--text-mid);line-height:1.7;flex:1}
+.doc-meta{display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid #edf5f5}
+.doc-rating-lg{display:flex;align-items:center;gap:.4rem;font-size:.83rem;color:var(--text-light)}
+.doc-avail{background:var(--cyan-glow);color:var(--cyan);font-size:.73rem;font-weight:700;padding:.28rem .8rem;border-radius:50px}
+.book-doc{
+  display:block;margin-top:1.2rem;text-align:center;background:var(--teal);color:#fff;
+  padding:.75rem;border-radius:var(--rs);font-size:.85rem;font-weight:700;transition:all .3s;
+}
+.book-doc:hover{background:var(--cyan);color:var(--teal)}
+
+/* social mini */
+.doc-socials{display:flex;gap:.5rem;margin-top:.8rem}
+.ds{
+  width:34px;height:34px;border-radius:50%;background:var(--sage);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-mid);font-size:.8rem;transition:.3s;
+}
+.ds:hover{background:var(--cyan);color:var(--teal)}
+
+/* specialty section header */
+.spec-header{
+  display:flex;align-items:center;gap:1rem;margin:3rem 0 1.5rem;
+  padding-bottom:1rem;border-bottom:2px solid var(--sage-dark);
+}
+.spec-header h3{font-family:var(--font-d);font-size:1.4rem;color:var(--text)}
+.spec-badge{background:var(--cyan);color:var(--teal);font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:50px}
+
+/* hidden by filter */
+.doc-item{transition:opacity .3s,transform .3s}
+.doc-item.hidden{display:none}
+
+@media(max-width:900px){.doc-full-img{height:240px}}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-logo"><div class="loader-dot"></div>VitalCare</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><div class="nav-dot"></div>VitalCare</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="doctors.html">Doctors</a></li>
+    <li><a href="hospitals.html">Hospitals</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Appointment</a></li>
+  </ul>
+  <div class="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="doc-hero-bg"></div>
+  <div class="crumb"><a href="index.html">Home</a><span>›</span>Our Doctors</div>
+  <h1>Meet Our Physicians</h1>
+  <p>Internationally trained, locally committed. Our 48+ specialists bring decades of combined expertise and genuine compassion to every patient encounter.</p>
+</div>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stat-box"><div class="stat-n"><span data-count="48" data-suffix="+">0</span></div><p>Specialist Doctors</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="15" data-suffix="+">0</span></div><p>Medical Specialties</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="98" data-suffix="%">0</span></div><p>Patient Satisfaction</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="200" data-suffix="K+">0</span></div><p>Procedures Performed</p></div>
+</div>
+
+<section class="sec">
+  <div class="tag">Find a Doctor</div>
+  <h2 class="h1 reveal">Browse by Specialty</h2>
+  <p class="sub reveal d1">Filter our team by specialty to find the right expert for your needs.</p>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" style="margin-top:2rem">
+    <button class="filter-btn active" data-filter="all">All Doctors</button>
+    <button class="filter-btn" data-filter="cardiology">Cardiology</button>
+    <button class="filter-btn" data-filter="neurology">Neurology</button>
+    <button class="filter-btn" data-filter="orthopedics">Orthopedics</button>
+    <button class="filter-btn" data-filter="maternity">Maternity</button>
+    <button class="filter-btn" data-filter="oncology">Oncology</button>
+    <button class="filter-btn" data-filter="ophthalmology">Ophthalmology</button>
+  </div>
+
+  <!-- ── CARDIOLOGY ── -->
+  <div class="spec-header">
+    <h3>Cardiology</h3><div class="spec-badge">Heart & Vascular</div>
+  </div>
+  <div class="grid-3" id="docGrid">
+
+    <div class="doc-item doc-full reveal d1" data-dept="cardiology">
+      <img class="doc-full-img" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Chukwuemeka Osei">
+      <div class="doc-full-body">
+        <h3>Dr. Chukwuemeka Osei</h3>
+        <div class="doc-spec">Interventional Cardiologist</div>
+        <div class="doc-exp">18 years experience · LUTH, Johns Hopkins trained</div>
+        <p>Pioneer in interventional cardiology in Nigeria. Specialises in coronary angioplasty, stenting, and complex heart failure management. Published in the Journal of the American College of Cardiology.</p>
+        <div class="doc-socials">
+          <a class="ds" href="#">in</a><a class="ds" href="#">✉</a>
+        </div>
+        <div class="doc-meta">
+          <div class="doc-rating-lg"><span class="stars">★★★★★</span> 4.9 · 312 reviews</div>
+          <div class="doc-avail">Mon – Fri</div>
+        </div>
+        <a href="contact.html" class="book-doc">Book Appointment</a>
+      </div>
+    </div>
+
+    <div class="doc-item doc-full reveal d2" data-dept="cardiology">
+      <img class="doc-full-img" src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Emmanuel Eze">
+      <div class="doc-full-body">
+        <h3>Dr. Emmanuel Eze</h3>
+        <div class="doc-spec">Cardiac Electrophysiologist</div>
+        <div class="doc-exp">13 years experience · UCH Ibadan, London trained</div>
+        <p>Expert in cardiac arrhythmia, pacemaker implantation, and catheter ablation procedures. Fellow of the West African College of Physicians and the European Heart Rhythm Association.</p>
+        <div class="doc-socials"><a class="ds" href="#">in</a><a class="ds" href="#">✉</a></div>
+        <div class="doc-meta">
+          <div class="doc-rating-lg"><span class="stars">★★★★★</span> 4.8 · 201 reviews</div>
+          <div class="doc-avail">Tue – Sat</div>
+        </div>
+        <a href="contact.html" class="book-doc">Book Appointment</a>
+      </div>
+    </div>
+
+    <!-- ── NEUROLOGY ── -->
+    <div class="doc-item doc-full reveal d3" data-dept="neurology">
+      <img class="doc-full-img" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Amara Nwosu">
+      <div class="doc-full-body">
+        <h3>Dr. Amara Nwosu</h3>
+        <div class="doc-spec">Consultant Neurologist</div>
+        <div class="doc-exp">14 years experience · WACP Fellow, UK trained</div>
+        <p>Advanced training in epilepsy and stroke management from King's College London. Leads the dedicated Stroke Unit at VitalCare Victoria Island. Renowned for compassionate patient communication.</p>
+        <div class="doc-socials"><a class="ds" href="#">in</a><a class="ds" href="#">✉</a></div>
+        <div class="doc-meta">
+          <div class="doc-rating-lg"><span class="stars">★★★★★</span> 4.8 · 274 reviews</div>
+          <div class="doc-avail">Mon – Thu</div>
+        </div>
+        <a href="contact.html" class="book-doc">Book Appointment</a>
+      </div>
+    </div>
+
+    <div class="doc-item doc-full reveal d1" data-dept="neurology">
+      <img class="doc-full-img" src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Fatima Bello">
+      <div class="doc-full-body">
+        <h3>Dr. Fatima Bello</h3>
+        <div class="doc-spec">Neuro-Oncologist</div>
+        <div class="doc-exp">10 years experience · ABUTH, Germany trained</div>
+        <p>Specialist in brain tumour management, neuroradiology interpretation, and neuro-rehabilitation. Runs a weekly multidisciplinary neuro-oncology tumour board at VitalCare Abuja.</p>
+        <div class="doc-socials"><a class="ds" href="#">in</a><a class="ds" href="#">✉</a></div>
+        <div class="doc-meta">
+          <div class="doc-rating-lg"><span class="stars">★★★★☆</span> 4.7 · 143 reviews</div>
+          <div class="doc-avail">Wed – Sat</div>
+        </div>
+        <a href="contact.html" class="book-doc">Book Appointment</a>
+      </div>
+    </div>
+
+    <!-- ── ORTHOPEDICS ── -->
+    <div class="doc-item doc-full reveal d2" data-dept="orthopedics">
+      <img class="doc-full-img" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Babatunde Adeyemi">
+      <div class="doc-full-body">
+        <h3>Dr. Babatunde Adeyemi</h3>
+        <div class="doc-spec">Orthopedic Surgeon</div>
+        <div class="doc-exp">22 years experience · NOA Board-Certified</div>
+        <p>Pioneer of minimally invasive joint replacement surgery in Nigeria with over 2,000 successful procedures. Leads robotic-assisted surgery programme at VitalCare. Author of the NOA clinical guidelines.</p>
+        <div class="doc-socials"><a class="ds" href="#">in</a><a class="ds" href="#">✉</a></div>
+        <div class="doc-meta">
+          <div class="doc-rating-lg"><span class="stars">★★★★★</span> 5.0 · 198 reviews</div>
+          <div class="doc-avail">Mon – Thu</div>
+        </div>
+        <a href="contact.html" class="book-doc">Book Appointment</a>
+      </div>
+    </div>
+
+    <!-- ── MATERNITY / OB-GYN ── -->
+    <div class="doc-item doc-full reveal d3" data-dept="maternity">
+      <img class="doc-full-img" src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Ngozi Obiechina">
+      <div class="doc-full-body">
+        <h3>Dr. Ngozi Obiechina</h3>
+        <div class="doc-spec">OB / Gynecologist</div>
+        <div class="doc-exp">16 years experience · SOGON Fellow, Canada trained</div>
+        <p>Award-winning maternal-fetal medicine specialist with expertise in high-risk pregnancies and reproductive endocrinology. Over 3,000 successful deliveries including complex twin and breech presentations.</p>
+        <div class="doc-socials"><a class="ds" href="#">in</a><a class="ds" href="#">✉</a></div>
+        <div class="doc-meta">
+          <div class="doc-rating-lg"><span class="stars">★★★★★</span> 4.9 · 341 reviews</div>
+          <div class="doc-avail">Wed – Sun</div>
+        </div>
+        <a href="contact.html" class="book-doc">Book Appointment</a>
+      </div>
+    </div>
+
+    <!-- ── ONCOLOGY ── -->
+    <div class="doc-item doc-full reveal d1" data-dept="oncology">
+      <img class="doc-full-img" src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Ifeanyi Eze">
+      <div class="doc-full-body">
+        <h3>Dr. Ifeanyi Eze</h3>
+        <div class="doc-spec">Clinical Oncologist</div>
+        <div class="doc-exp">12 years experience · Lancet published researcher</div>
+        <p>Specialises in breast and colorectal cancers, immunotherapy, and targeted therapy protocols. His research on cancer survivorship in sub-Saharan Africa has been published in The Lancet Oncology.</p>
+        <div class="doc-socials"><a class="ds" href="#">in</a><a class="ds" href="#">✉</a></div>
+        <div class="doc-meta">
+          <div class="doc-rating-lg"><span class="stars">★★★★★</span> 4.9 · 187 reviews</div>
+          <div class="doc-avail">Mon – Fri</div>
+        </div>
+        <a href="contact.html" class="book-doc">Book Appointment</a>
+      </div>
+    </div>
+
+    <!-- ── OPHTHALMOLOGY ── -->
+    <div class="doc-item doc-full reveal d2" data-dept="ophthalmology">
+      <img class="doc-full-img" src="https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Kemi Adesanya">
+      <div class="doc-full-body">
+        <h3>Dr. Kemi Adesanya</h3>
+        <div class="doc-spec">Ophthalmologist</div>
+        <div class="doc-exp">11 years experience · Moorfields Eye Hospital, London</div>
+        <p>LASIK and cataract surgery specialist with over 4,000 successful procedures. Sub-speciality in medical retina and diabetic eye disease. Visiting lecturer at the College of Medicine, University of Lagos.</p>
+        <div class="doc-socials"><a class="ds" href="#">in</a><a class="ds" href="#">✉</a></div>
+        <div class="doc-meta">
+          <div class="doc-rating-lg"><span class="stars">★★★★★</span> 4.8 · 226 reviews</div>
+          <div class="doc-avail">Tue – Fri</div>
+        </div>
+        <a href="contact.html" class="book-doc">Book Appointment</a>
+      </div>
+    </div>
+
+    <div class="doc-item doc-full reveal d3" data-dept="cardiology">
+      <img class="doc-full-img" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Adaeze Okonkwo">
+      <div class="doc-full-body">
+        <h3>Dr. Adaeze Okonkwo</h3>
+        <div class="doc-spec">Consultant Cardiologist</div>
+        <div class="doc-exp">9 years experience · UNILAG College of Medicine</div>
+        <p>Specialist in echocardiography and preventive cardiology. Runs VitalCare's popular heart health screening programme reaching 5,000+ patients annually. Advocate for women's cardiovascular health.</p>
+        <div class="doc-socials"><a class="ds" href="#">in</a><a class="ds" href="#">✉</a></div>
+        <div class="doc-meta">
+          <div class="doc-rating-lg"><span class="stars">★★★★★</span> 4.7 · 156 reviews</div>
+          <div class="doc-avail">Mon, Wed, Fri</div>
+        </div>
+        <a href="contact.html" class="book-doc">Book Appointment</a>
+      </div>
+    </div>
+
+  </div><!-- /docGrid -->
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2 class="reveal">Not Sure Which Doctor to See?</h2>
+  <p class="reveal d1">Book a general consultation and our intake team will match you to the right specialist.</p>
+  <a href="contact.html" class="btn btn-primary reveal d2">Get Started →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div class="nav-logo" style="font-size:1.3rem"><div class="nav-dot"></div>VitalCare</div>
+      <p>World-class health and wellness care for every stage of life. Serving Lagos and Abuja since 2004.</p>
+    </div>
+    <div class="ft-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="doctors.html">Doctors</a></li>
+      <li><a href="hospitals.html">Hospitals</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Specialties</h4><ul>
+      <li><a href="services.html">Cardiology</a></li>
+      <li><a href="services.html">Neurology</a></li>
+      <li><a href="services.html">Orthopedics</a></li>
+      <li><a href="services.html">Oncology</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Contact</h4><ul>
+      <li><a href="#">📞 +234 800 VITALCARE</a></li>
+      <li><a href="#">✉️ hello@vitalcare.ng</a></li>
+      <li><a href="#">🚑 Emergency 24/7</a></li>
+    </ul></div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2024 VitalCare Health & Wellness.</span>
+    <a href="contact.html">Book Appointment</a>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// Filter functionality
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const filter = this.dataset.filter;
+    document.querySelectorAll('.doc-item').forEach(card => {
+      if (filter === 'all' || card.dataset.dept === filter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

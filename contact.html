@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Book Appointment | VitalCare Health & Wellness</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.contact-hero-img{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1581056771107-24ca5f033842?w=1600&q=80&auto=format&fit=crop') center/cover no-repeat;
+  opacity:.12;
+}
+
+/* booking layout */
+.booking-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:start;margin-top:3.5rem}
+
+/* info side */
+.contact-info-title{font-family:var(--font-d);font-size:1.5rem;color:var(--text);margin-bottom:1.5rem;line-height:1.2}
+.contact-item{display:flex;gap:1rem;margin-bottom:1.6rem;align-items:flex-start}
+.ci-icon{
+  width:46px;height:46px;background:var(--cyan-glow);border-radius:11px;
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;
+}
+.ci-label{font-size:.73rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem;font-weight:600}
+.ci-value{font-weight:600;color:var(--text);font-size:.93rem;line-height:1.5}
+.ci-value a{color:var(--text);text-decoration:none}
+.ci-value a:hover{color:var(--cyan)}
+
+.emergency-box{
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  border-radius:var(--r);padding:1.8rem;margin-top:2rem;
+  border:1px solid rgba(0,188,212,.25);
+}
+.emergency-box h4{color:#fff;font-family:var(--font-d);font-size:1.1rem;margin-bottom:.5rem}
+.emergency-box p{font-size:.86rem;color:rgba(255,255,255,.65);margin-bottom:.8rem;line-height:1.6}
+.emergency-num{font-size:1.4rem;font-weight:700;color:var(--coral);font-family:var(--font-d)}
+
+/* hours table */
+.hours-table{width:100%;margin-top:1.5rem;border-collapse:collapse}
+.hours-table tr{border-bottom:1px solid #edf5f5}
+.hours-table td{padding:.65rem .3rem;font-size:.85rem}
+.hours-table td:first-child{color:var(--text-mid);font-weight:600;width:45%}
+.hours-table td:last-child{color:var(--text-light)}
+.open-badge{
+  display:inline-block;background:rgba(0,200,100,.12);color:#00b359;
+  font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:50px;margin-left:.5rem;
+}
+
+/* form box */
+.form-box{background:var(--pure);border-radius:var(--r);padding:2.8rem;box-shadow:var(--sh)}
+.form-box h3{font-family:var(--font-d);font-size:1.4rem;color:var(--text);margin-bottom:.4rem}
+.form-box .form-sub{font-size:.86rem;color:var(--text-light);margin-bottom:2rem}
+.form-steps{display:flex;gap:.5rem;margin-bottom:2rem}
+.step-dot{
+  flex:1;height:4px;border-radius:2px;background:#e0eded;
+  transition:background .4s;
+}
+.step-dot.done{background:var(--cyan)}
+.step-dot.active{background:var(--cyan);box-shadow:0 0 0 3px var(--cyan-glow)}
+
+/* success state */
+.form-success{display:none;text-align:center;padding:3rem 2rem}
+.success-icon{font-size:4rem;margin-bottom:1rem;display:block}
+.form-success h3{font-family:var(--font-d);font-size:1.6rem;color:var(--text);margin-bottom:.6rem}
+.form-success p{font-size:.9rem;color:var(--text-light);line-height:1.7;max-width:340px;margin:0 auto 1.5rem}
+
+/* map strip at bottom of contact */
+.contact-map{width:100%;height:360px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-top:4rem}
+.contact-map iframe{width:100%;height:100%;border:none;display:block}
+
+@media(max-width:1050px){
+  .booking-layout{grid-template-columns:1fr;gap:3rem}
+}
+@media(max-width:900px){
+  .form-box{padding:2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-logo"><div class="loader-dot"></div>VitalCare</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><div class="nav-dot"></div>VitalCare</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="doctors.html">Doctors</a></li>
+    <li><a href="hospitals.html">Hospitals</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Appointment</a></li>
+  </ul>
+  <div class="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="contact-hero-img"></div>
+  <div class="crumb"><a href="index.html">Home</a><span>›</span>Book Appointment</div>
+  <h1>Book an Appointment</h1>
+  <p>Fill out the form below and our team will confirm your slot within 30 minutes. Walk-ins are always welcome at all three locations.</p>
+</div>
+
+<!-- QUICK CONTACT BAND -->
+<div class="stats-band">
+  <div class="stat-box">
+    <div class="stat-n" style="font-size:1.5rem">📞</div>
+    <p style="font-size:.9rem;color:var(--text)">+234 800 VITALCARE</p>
+  </div>
+  <div class="stat-box">
+    <div class="stat-n" style="font-size:1.5rem">✉️</div>
+    <p style="font-size:.9rem;color:var(--text)">hello@vitalcare.ng</p>
+  </div>
+  <div class="stat-box">
+    <div class="stat-n" style="font-size:1.5rem">💬</div>
+    <p style="font-size:.9rem;color:var(--text)">WhatsApp: +234 803 000 0000</p>
+  </div>
+  <div class="stat-box">
+    <div class="stat-n" style="font-size:1.5rem;color:var(--coral)">🚑</div>
+    <p style="font-size:.9rem;color:var(--coral);font-weight:700">Emergency: +234 800 911 0000</p>
+  </div>
+</div>
+
+<!-- BOOKING LAYOUT -->
+<section class="sec">
+  <div class="tag">Get In Touch</div>
+  <h2 class="h1 reveal">We're Here When<br>You Need Us</h2>
+
+  <div class="booking-layout">
+
+    <!-- LEFT — Info -->
+    <div>
+      <p class="contact-info-title reveal">Contact & Location<br>Information</p>
+
+      <div class="contact-item reveal d1">
+        <div class="ci-icon">📍</div>
+        <div>
+          <div class="ci-label">Flagship Hospital</div>
+          <div class="ci-value">14 Ozumba Mbadiwe Avenue,<br>Victoria Island, Lagos</div>
+        </div>
+      </div>
+      <div class="contact-item reveal d2">
+        <div class="ci-icon">📍</div>
+        <div>
+          <div class="ci-label">Lekki Branch</div>
+          <div class="ci-value">Plot 5 Admiralty Way,<br>Lekki Phase 1, Lagos</div>
+        </div>
+      </div>
+      <div class="contact-item reveal d3">
+        <div class="ci-icon">📍</div>
+        <div>
+          <div class="ci-label">Abuja Branch</div>
+          <div class="ci-value">27 Adetokunbo Ademola Crescent,<br>Wuse II, Abuja FCT</div>
+        </div>
+      </div>
+      <div class="contact-item reveal d4">
+        <div class="ci-icon">📞</div>
+        <div>
+          <div class="ci-label">General Enquiries</div>
+          <div class="ci-value">
+            <a href="tel:+2348000000000">+234 800 VITALCARE</a><br>
+            <a href="tel:+23401740000">+234 01 740 0000</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-item reveal">
+        <div class="ci-icon">✉️</div>
+        <div>
+          <div class="ci-label">Email</div>
+          <div class="ci-value"><a href="mailto:appointments@vitalcare.ng">appointments@vitalcare.ng</a></div>
+        </div>
+      </div>
+
+      <!-- HOURS TABLE -->
+      <div class="reveal" style="margin-top:1.5rem">
+        <div class="ci-label" style="margin-bottom:.8rem">Opening Hours</div>
+        <table class="hours-table">
+          <tr><td>Monday – Friday</td><td>7:00 AM – 10:00 PM <span class="open-badge">Open</span></td></tr>
+          <tr><td>Saturday</td><td>8:00 AM – 8:00 PM <span class="open-badge">Open</span></td></tr>
+          <tr><td>Sunday</td><td>9:00 AM – 6:00 PM <span class="open-badge">Open</span></td></tr>
+          <tr><td>Emergency (A&E)</td><td>24 Hours / 7 Days <span class="open-badge">Always Open</span></td></tr>
+        </table>
+      </div>
+
+      <!-- EMERGENCY BOX -->
+      <div class="emergency-box reveal">
+        <h4>🚑 Medical Emergency?</h4>
+        <p>Please do not fill out the form — call our dedicated emergency line immediately. Our rapid response team is available around the clock.</p>
+        <div class="emergency-num">+234 800 911 0000</div>
+      </div>
+    </div>
+
+    <!-- RIGHT — Form -->
+    <div class="form-box reveal d2">
+      <h3>Schedule Your Visit</h3>
+      <p class="form-sub">Our team will confirm your appointment within 30 minutes of submission.</p>
+
+      <!-- progress dots -->
+      <div class="form-steps">
+        <div class="step-dot done" id="step1"></div>
+        <div class="step-dot" id="step2"></div>
+        <div class="step-dot" id="step3"></div>
+      </div>
+
+      <form id="bookingForm">
+        <!-- Personal Info -->
+        <div class="form-row">
+          <div class="fg">
+            <label>First Name *</label>
+            <input type="text" placeholder="Emeka" required>
+          </div>
+          <div class="fg">
+            <label>Last Name *</label>
+            <input type="text" placeholder="Okafor" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label>Phone Number *</label>
+            <input type="tel" placeholder="+234 800 000 0000" required>
+          </div>
+          <div class="fg">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@email.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label>Date of Birth</label>
+            <input type="date">
+          </div>
+          <div class="fg">
+            <label>Gender</label>
+            <select>
+              <option value="">Select...</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Appointment Info -->
+        <div class="fg">
+          <label>Preferred Hospital Location *</label>
+          <select required>
+            <option value="">Choose a location...</option>
+            <option>VitalCare Victoria Island, Lagos</option>
+            <option>VitalCare Lekki Phase 1, Lagos</option>
+            <option>VitalCare Abuja (Wuse II)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Select Department / Specialty *</label>
+          <select required>
+            <option value="">Choose a specialty...</option>
+            <option>Cardiology — Heart Care</option>
+            <option>Neurology — Brain & Spine</option>
+            <option>Orthopedics — Bone & Joint</option>
+            <option>Maternity & Women's Health</option>
+            <option>Oncology — Cancer Care</option>
+            <option>Ophthalmology — Eye Care</option>
+            <option>Dental & Oral Health</option>
+            <option>Paediatrics — Child Health</option>
+            <option>Physiotherapy & Rehabilitation</option>
+            <option>Psychiatry & Mental Wellness</option>
+            <option>General Practice / Check-up</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label>Preferred Date *</label>
+            <input type="date" required>
+          </div>
+          <div class="fg">
+            <label>Preferred Time *</label>
+            <select required>
+              <option>8:00 AM</option><option>9:00 AM</option>
+              <option>10:00 AM</option><option>11:00 AM</option>
+              <option>12:00 PM</option><option>2:00 PM</option>
+              <option>3:00 PM</option><option>4:00 PM</option>
+              <option>5:00 PM</option><option>6:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Is this a Follow-up Visit?</label>
+          <select>
+            <option>No — This is my first visit</option>
+            <option>Yes — I am an existing patient</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>HMO / Insurance Provider (if any)</label>
+          <input type="text" placeholder="e.g. Hygeia HMO, AIICO, Leadway">
+        </div>
+        <div class="fg">
+          <label>Briefly Describe Your Concern (Optional)</label>
+          <textarea placeholder="Tell us a little about your symptoms or the reason for your visit so we can match you with the right doctor..."></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Confirm My Appointment →</button>
+        <p style="font-size:.75rem;color:var(--text-light);margin-top:1rem;text-align:center">Your information is kept strictly confidential and used only to book your appointment.</p>
+      </form>
+
+      <!-- Success state -->
+      <div class="form-success">
+        <span class="success-icon">✅</span>
+        <h3>Appointment Requested!</h3>
+        <p>Thank you! Our scheduling team will call you within <strong>30 minutes</strong> to confirm your slot and answer any questions.</p>
+        <a href="index.html" class="btn btn-dark">Back to Home →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MAP STRIP -->
+  <div class="contact-map reveal" style="margin-top:5rem">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7305213914054!2d3.4215695!3d6.4280556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf53aec4dd92d%3A0xd0276bac37e5f30!2sVictoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1710000000000"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      title="VitalCare Victoria Island Location">
+    </iframe>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2 class="reveal">Prefer to Call Instead?</h2>
+  <p class="reveal d1">Our friendly patient coordinators are available Mon–Fri 7AM–10PM and Sat–Sun 8AM–6PM.</p>
+  <a href="tel:+2348000000000" class="btn btn-primary reveal d2">📞 Call +234 800 VITALCARE</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div class="nav-logo" style="font-size:1.3rem"><div class="nav-dot"></div>VitalCare</div>
+      <p>World-class health and wellness care for every stage of life. Serving Lagos and Abuja since 2004.</p>
+    </div>
+    <div class="ft-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="doctors.html">Doctors</a></li>
+      <li><a href="hospitals.html">Hospitals</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Locations</h4><ul>
+      <li><a href="hospitals.html">Victoria Island, Lagos</a></li>
+      <li><a href="hospitals.html">Lekki Phase 1, Lagos</a></li>
+      <li><a href="hospitals.html">Wuse II, Abuja</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Emergency</h4><ul>
+      <li><a href="tel:+2348009110000" style="color:var(--coral)">🚑 VI: +234 800 911 0000</a></li>
+      <li><a href="tel:+2348009110001" style="color:var(--coral)">🚑 Lekki: +234 800 911 0001</a></li>
+      <li><a href="tel:+2348009110002" style="color:var(--coral)">🚑 Abuja: +234 800 911 0002</a></li>
+    </ul></div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2024 VitalCare Health & Wellness. All rights reserved.</span>
+    <div><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// Form progress animation
+const inputs = document.querySelectorAll('#bookingForm input, #bookingForm select, #bookingForm textarea');
+const steps = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3')];
+let filled = 0;
+inputs.forEach(inp => {
+  inp.addEventListener('input', () => {
+    filled = [...inputs].filter(i => i.value.trim() !== '').length;
+    const pct = filled / inputs.length;
+    steps[0].className = 'step-dot done';
+    steps[1].className = pct > 0.4 ? 'step-dot done' : (pct > 0.1 ? 'step-dot active' : 'step-dot');
+    steps[2].className = pct > 0.75 ? 'step-dot done' : (pct > 0.4 ? 'step-dot active' : 'step-dot');
+  });
+});
+
+// Form submit
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  this.style.display = 'none';
+  document.querySelector('.form-steps').style.display = 'none';
+  document.querySelector('.form-sub').style.display = 'none';
+  document.querySelector('.form-box h3').style.display = 'none';
+  document.querySelector('.form-success').style.display = 'block';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Hospitals | VitalCare Health & Wellness</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.hosp-hero-img{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1600&q=80&auto=format&fit=crop') center/cover no-repeat;
+  opacity:.15;
+}
+
+/* ── HOSPITAL FEATURE SECTION ── */
+.hosp-feature{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;
+  align-items:start;padding:5rem 4rem;border-bottom:1px solid #e0eded;
+}
+.hosp-feature:nth-child(even){direction:rtl}
+.hosp-feature:nth-child(even)>*{direction:ltr}
+.hosp-feature-imgs{position:relative;height:520px}
+.hf-main{
+  width:80%;height:380px;border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);position:absolute;top:0;right:0;
+}
+.hf-main img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.hf-main:hover img{transform:scale(1.05)}
+.hf-accent{
+  width:54%;height:210px;border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);position:absolute;bottom:0;left:0;z-index:2;
+}
+.hf-accent img{width:100%;height:100%;object-fit:cover;display:block}
+.hf-tag-badge{
+  position:absolute;top:20px;left:20px;z-index:3;
+  background:var(--teal);color:#fff;border-radius:var(--rs);
+  padding:1rem 1.4rem;border:1px solid rgba(0,188,212,.35);
+  box-shadow:var(--sh);
+}
+.hf-tag-badge strong{display:block;font-family:var(--font-d);font-size:1.4rem;color:var(--cyan);line-height:1}
+.hf-tag-badge span{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.55)}
+
+.hosp-feature-text h2{font-family:var(--font-d);font-size:clamp(1.7rem,2.8vw,2.4rem);color:var(--text);line-height:1.15;margin-bottom:1rem}
+.hosp-feature-text p{font-size:.92rem;color:var(--text-mid);line-height:1.75;margin-bottom:1rem}
+.hosp-info-list{list-style:none;margin:1.5rem 0}
+.hosp-info-list li{display:flex;align-items:flex-start;gap:.9rem;padding:.8rem 0;border-bottom:1px solid #edf5f5}
+.hosp-info-list li:last-child{border-bottom:none}
+.hil-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px}
+.hil-text strong{display:block;font-size:.88rem;font-weight:700;color:var(--text)}
+.hil-text span{font-size:.82rem;color:var(--text-light)}
+.hosp-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
+.htag{background:var(--sage);color:var(--text-mid);font-size:.76rem;font-weight:600;padding:.3rem .85rem;border-radius:50px}
+
+@media(max-width:1050px){
+  .hosp-feature{grid-template-columns:1fr;gap:2.5rem;padding:3rem 1.5rem;direction:ltr!important}
+  .hosp-feature-imgs{height:320px}
+  .hf-main{width:85%;height:250px}
+  .hf-accent{width:50%;height:160px}
+}
+
+/* ── MAP SECTION ── */
+.map-section{padding:5rem 4rem;background:var(--sage)}
+.map-header{margin-bottom:2.5rem}
+.map-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:3rem;align-items:start}
+.map-wrap{
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);height:500px;position:relative;
+}
+.map-wrap iframe{width:100%;height:100%;border:none;display:block}
+.map-info-panel{display:flex;flex-direction:column;gap:1.2rem}
+.map-card{
+  background:var(--pure);border-radius:var(--r);padding:1.5rem;
+  box-shadow:var(--sh);border-left:4px solid var(--cyan);
+  cursor:pointer;transition:all .3s;
+}
+.map-card:hover{transform:translateX(6px);border-left-color:var(--coral)}
+.map-card h4{font-family:var(--font-d);font-size:1rem;color:var(--text);margin-bottom:.4rem}
+.map-card-detail{font-size:.82rem;color:var(--text-light);line-height:1.6}
+.map-card-detail strong{color:var(--text-mid)}
+.map-card .mc-badge{
+  display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;
+  background:var(--cyan-glow);color:var(--cyan);
+  font-size:.72rem;font-weight:700;padding:.28rem .75rem;border-radius:50px;
+}
+.map-card .mc-dir{
+  display:inline-block;margin-top:.5rem;margin-left:.5rem;
+  color:var(--cyan);font-size:.78rem;font-weight:700;
+}
+.map-card .mc-dir:hover{color:var(--coral)}
+
+@media(max-width:900px){
+  .map-section{padding:3rem 1.5rem}
+  .map-grid{grid-template-columns:1fr}
+  .map-wrap{height:340px}
+}
+
+/* ── FACILITIES GRID ── */
+.fac-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.fac-card{
+  border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);
+  position:relative;height:260px;cursor:pointer;
+}
+.fac-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.fac-card:hover img{transform:scale(1.08)}
+.fac-card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,46,54,.85) 0%,rgba(10,46,54,.1) 60%);
+  display:flex;align-items:flex-end;padding:1.5rem;
+}
+.fac-card-overlay h4{font-family:var(--font-d);font-size:1.05rem;color:#fff}
+.fac-card-overlay p{font-size:.78rem;color:rgba(255,255,255,.65);margin-top:.3rem}
+
+@media(max-width:900px){
+  .fac-grid{grid-template-columns:1fr 1fr}
+  .fac-card{height:200px}
+}
+@media(max-width:600px){.fac-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-logo"><div class="loader-dot"></div>VitalCare</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><div class="nav-dot"></div>VitalCare</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="doctors.html">Doctors</a></li>
+    <li><a href="hospitals.html">Hospitals</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Appointment</a></li>
+  </ul>
+  <div class="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hosp-hero-img"></div>
+  <div class="crumb"><a href="index.html">Home</a><span>›</span>Our Hospitals</div>
+  <h1>Our Hospital Locations</h1>
+  <p>Three state-of-the-art facilities across Lagos and Abuja — each equipped to deliver the full spectrum of VitalCare's world-class services close to where you live.</p>
+</div>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stat-box"><div class="stat-n"><span data-count="3">0</span></div><p>Hospital Locations</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="420" data-suffix="+">0</span></div><p>Inpatient Beds</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="6">0</span></div><p>Surgical Theatres</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="24" data-suffix="/7">0</span></div><p>Emergency Care</p></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     HOSPITAL 1 — VICTORIA ISLAND
+══════════════════════════════════ -->
+<div class="hosp-feature">
+  <div class="hosp-feature-imgs reveal-l">
+    <div class="hf-main">
+      <img src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=900&q=80&auto=format&fit=crop" alt="VitalCare Victoria Island Main Building" loading="lazy">
+    </div>
+    <div class="hf-accent">
+      <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&q=80&auto=format&fit=crop" alt="VitalCare VI Lobby" loading="lazy">
+    </div>
+    <div class="hf-tag-badge">
+      <strong>Est. 2004</strong>
+      <span>Flagship Location</span>
+    </div>
+  </div>
+
+  <div class="hosp-feature-text reveal">
+    <div class="tag">Flagship Hospital</div>
+    <h2>VitalCare Victoria Island</h2>
+    <p>Our flagship 200-bed hospital on Ozumba Mbadiwe Avenue is the most comprehensive private medical facility in Lagos. Home to our Cardiac Centre, dedicated Stroke Unit, Cancer Care Centre, and robotic-assisted Surgery Suite — all under one roof.</p>
+    <p>Fully accredited by the Joint Commission International (JCI) and ISO 9001 certified, this facility sets the benchmark for private healthcare in Nigeria.</p>
+    <div class="hosp-tags">
+      <span class="htag">200 Beds</span><span class="htag">JCI Accredited</span>
+      <span class="htag">24/7 A&E</span><span class="htag">Level 3 NICU</span>
+      <span class="htag">Robotic Surgery</span><span class="htag">Cancer Centre</span>
+    </div>
+    <ul class="hosp-info-list">
+      <li>
+        <div class="hil-icon">📍</div>
+        <div class="hil-text">
+          <strong>Address</strong>
+          <span>14 Ozumba Mbadiwe Avenue, Victoria Island, Lagos</span>
+        </div>
+      </li>
+      <li>
+        <div class="hil-icon">📞</div>
+        <div class="hil-text">
+          <strong>Phone</strong>
+          <span>+234 01 740 0000 &nbsp;|&nbsp; Emergency: +234 800 911 0000</span>
+        </div>
+      </li>
+      <li>
+        <div class="hil-icon">🕐</div>
+        <div class="hil-text">
+          <strong>Hours</strong>
+          <span>OPD: Mon–Fri 7AM–10PM, Sat–Sun 8AM–6PM &nbsp;|&nbsp; A&E: 24 / 7</span>
+        </div>
+      </li>
+      <li>
+        <div class="hil-icon">🚗</div>
+        <div class="hil-text">
+          <strong>Getting Here</strong>
+          <span>Opposite Eko Hotel, 3 mins from Falomo Bridge. Free multi-storey parking available.</span>
+        </div>
+      </li>
+    </ul>
+    <a href="contact.html" class="btn btn-dark">Book at This Location →</a>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     HOSPITAL 2 — LEKKI
+══════════════════════════════════ -->
+<div class="hosp-feature">
+  <div class="hosp-feature-imgs reveal-l">
+    <div class="hf-main">
+      <img src="https://images.unsplash.com/photo-1632833239869-a37e3a5806d2?w=900&q=80&auto=format&fit=crop" alt="VitalCare Lekki Hospital" loading="lazy">
+    </div>
+    <div class="hf-accent">
+      <img src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=600&q=80&auto=format&fit=crop" alt="VitalCare Lekki Interior" loading="lazy">
+    </div>
+    <div class="hf-tag-badge">
+      <strong>Est. 2012</strong>
+      <span>Lekki Hub</span>
+    </div>
+  </div>
+
+  <div class="hosp-feature-text reveal">
+    <div class="tag">Lekki · Lagos</div>
+    <h2>VitalCare Lekki Phase 1</h2>
+    <p>Strategically positioned to serve the rapidly growing Lekki corridor, our 140-bed Lekki facility offers the full range of outpatient specialties plus a high-dependency unit, modern maternity suite, and a diagnostic imaging centre with 128-slice CT and 1.5T MRI.</p>
+    <p>The Lekki hospital is also home to our flagship Fertility and IVF Centre, consistently ranked among the top three fertility programmes in Nigeria.</p>
+    <div class="hosp-tags">
+      <span class="htag">140 Beds</span><span class="htag">IVF Centre</span>
+      <span class="htag">1.5T MRI</span><span class="htag">128-slice CT</span>
+      <span class="htag">High Dependency Unit</span><span class="htag">Maternity Suite</span>
+    </div>
+    <ul class="hosp-info-list">
+      <li>
+        <div class="hil-icon">📍</div>
+        <div class="hil-text">
+          <strong>Address</strong>
+          <span>Plot 5 Admiralty Way, Lekki Phase 1, Lagos</span>
+        </div>
+      </li>
+      <li>
+        <div class="hil-icon">📞</div>
+        <div class="hil-text">
+          <strong>Phone</strong>
+          <span>+234 01 770 2000 &nbsp;|&nbsp; Emergency: +234 800 911 0001</span>
+        </div>
+      </li>
+      <li>
+        <div class="hil-icon">🕐</div>
+        <div class="hil-text">
+          <strong>Hours</strong>
+          <span>OPD: Mon–Sat 7AM–9PM &nbsp;|&nbsp; Maternity & A&E: 24 / 7</span>
+        </div>
+      </li>
+      <li>
+        <div class="hil-icon">🚗</div>
+        <div class="hil-text">
+          <strong>Getting Here</strong>
+          <span>Off Lekki-Epe Expressway, after 1st roundabout. Parking for 200 cars on-site.</span>
+        </div>
+      </li>
+    </ul>
+    <a href="contact.html" class="btn btn-dark">Book at This Location →</a>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     HOSPITAL 3 — ABUJA
+══════════════════════════════════ -->
+<div class="hosp-feature">
+  <div class="hosp-feature-imgs reveal-l">
+    <div class="hf-main">
+      <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=900&q=80&auto=format&fit=crop" alt="VitalCare Abuja Hospital" loading="lazy">
+    </div>
+    <div class="hf-accent">
+      <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80&auto=format&fit=crop" alt="VitalCare Abuja Interior" loading="lazy">
+    </div>
+    <div class="hf-tag-badge">
+      <strong>Est. 2018</strong>
+      <span>Abuja Branch</span>
+    </div>
+  </div>
+
+  <div class="hosp-feature-text reveal">
+    <div class="tag">Wuse II · Abuja</div>
+    <h2>VitalCare Abuja</h2>
+    <p>Our newest and most technologically advanced facility, VitalCare Abuja brings the group's signature standard of care to the Federal Capital Territory. With 80 beds and a focus on outpatient specialist clinics, day-case surgery, and executive health screenings, it is the preferred medical partner for Abuja's diplomatic and corporate community.</p>
+    <div class="hosp-tags">
+      <span class="htag">80 Beds</span><span class="htag">Executive Health Checks</span>
+      <span class="htag">Day-Case Surgery</span><span class="htag">Dental Centre</span>
+      <span class="htag">Eye Clinic</span><span class="htag">Mental Wellness</span>
+    </div>
+    <ul class="hosp-info-list">
+      <li>
+        <div class="hil-icon">📍</div>
+        <div class="hil-text">
+          <strong>Address</strong>
+          <span>27 Adetokunbo Ademola Crescent, Wuse II, Abuja FCT</span>
+        </div>
+      </li>
+      <li>
+        <div class="hil-icon">📞</div>
+        <div class="hil-text">
+          <strong>Phone</strong>
+          <span>+234 09 290 3000 &nbsp;|&nbsp; Emergency: +234 800 911 0002</span>
+        </div>
+      </li>
+      <li>
+        <div class="hil-icon">🕐</div>
+        <div class="hil-text">
+          <strong>Hours</strong>
+          <span>OPD: Mon–Fri 7AM–8PM, Sat 8AM–4PM &nbsp;|&nbsp; A&E: 24 / 7</span>
+        </div>
+      </li>
+      <li>
+        <div class="hil-icon">🚗</div>
+        <div class="hil-text">
+          <strong>Getting Here</strong>
+          <span>2 mins from Transcorp Hilton, off Ahmadu Bello Way. Valet parking available.</span>
+        </div>
+      </li>
+    </ul>
+    <a href="contact.html" class="btn btn-dark">Book at This Location →</a>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     MAP SECTION
+══════════════════════════════════ -->
+<div class="map-section">
+  <div class="map-header">
+    <div class="tag">Find Us</div>
+    <h2 class="h1 reveal">All Our Locations on the Map</h2>
+    <p class="sub reveal d1">Click a location card to see it on the map, or use the map to explore our hospitals nearest to you.</p>
+  </div>
+
+  <div class="map-grid">
+    <!-- Embedded Google Map — Victoria Island, Lagos -->
+    <div class="map-wrap reveal">
+      <iframe
+        id="mainMap"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7305213914054!2d3.4215695!3d6.4280556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf53aec4dd92d%3A0xd0276bac37e5f30!2sVictoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1710000000000"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="VitalCare Hospital Locations">
+      </iframe>
+    </div>
+
+    <!-- Location cards panel -->
+    <div class="map-info-panel">
+
+      <div class="map-card reveal d1" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7305213914054!2d3.4215695!3d6.4280556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf53aec4dd92d%3A0xd0276bac37e5f30!2sVictoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1710000000000">
+        <h4>🏥 VitalCare Victoria Island</h4>
+        <div class="map-card-detail">
+          <strong>14 Ozumba Mbadiwe Avenue, VI, Lagos</strong><br>
+          📞 +234 01 740 0000<br>
+          🕐 OPD: 7AM–10PM &nbsp;|&nbsp; A&E: 24/7<br>
+          🛏️ 200 beds &nbsp;·&nbsp; JCI Accredited
+        </div>
+        <div>
+          <span class="mc-badge">🟢 Open Now</span>
+          <a class="mc-dir" href="https://maps.google.com/?q=Victoria+Island+Lagos" target="_blank">Get Directions ↗</a>
+        </div>
+      </div>
+
+      <div class="map-card reveal d2" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.2286889!2d3.4698556!3d6.4487556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4cb8d3f9a7f%3A0xb5b0f3a51c40a!2sLekki%20Phase%201%2C%20Lagos!5e0!3m2!1sen!2sng!4v1710000000001">
+        <h4>🏥 VitalCare Lekki Phase 1</h4>
+        <div class="map-card-detail">
+          <strong>Plot 5 Admiralty Way, Lekki Phase 1, Lagos</strong><br>
+          📞 +234 01 770 2000<br>
+          🕐 OPD: 7AM–9PM &nbsp;|&nbsp; Maternity: 24/7<br>
+          🛏️ 140 beds &nbsp;·&nbsp; IVF Centre
+        </div>
+        <div>
+          <span class="mc-badge">🟢 Open Now</span>
+          <a class="mc-dir" href="https://maps.google.com/?q=Lekki+Phase+1+Lagos" target="_blank">Get Directions ↗</a>
+        </div>
+      </div>
+
+      <div class="map-card reveal d3" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.3186!2d7.4898!3d9.0768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0ba5fee1cb71%3A0x3e4eb5ab8f5ab!2sWuse%20II%2C%20Abuja!5e0!3m2!1sen!2sng!4v1710000000002">
+        <h4>🏥 VitalCare Abuja</h4>
+        <div class="map-card-detail">
+          <strong>27 Adetokunbo Ademola Crescent, Wuse II, Abuja</strong><br>
+          📞 +234 09 290 3000<br>
+          🕐 OPD: Mon–Fri 7AM–8PM, Sat 8AM–4PM<br>
+          🛏️ 80 beds &nbsp;·&nbsp; Executive Health Centre
+        </div>
+        <div>
+          <span class="mc-badge">🟢 Open Now</span>
+          <a class="mc-dir" href="https://maps.google.com/?q=Wuse+II+Abuja" target="_blank">Get Directions ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     FACILITIES GALLERY
+══════════════════════════════════ -->
+<section class="sec">
+  <div class="tag">Inside Our Hospitals</div>
+  <h2 class="h1 reveal">World-Class Facilities</h2>
+  <p class="sub reveal d1">Every VitalCare location is designed to international standards — clinical excellence wrapped in comfort.</p>
+
+  <div class="fac-grid">
+    <div class="fac-card reveal d1">
+      <img src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=700&q=80&auto=format&fit=crop" alt="Modern Operating Theatre" loading="lazy">
+      <div class="fac-card-overlay">
+        <div><h4>Robotic Surgery Suite</h4><p>Da Vinci system for minimally invasive procedures</p></div>
+      </div>
+    </div>
+    <div class="fac-card reveal d2">
+      <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=700&q=80&auto=format&fit=crop" alt="MRI Scanner" loading="lazy">
+      <div class="fac-card-overlay">
+        <div><h4>3T MRI & Imaging</h4><p>128-slice CT · Digital X-ray · Ultrasound suites</p></div>
+      </div>
+    </div>
+    <div class="fac-card reveal d3">
+      <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=700&q=80&auto=format&fit=crop" alt="Patient Ward" loading="lazy">
+      <div class="fac-card-overlay">
+        <div><h4>Private Patient Wards</h4><p>En-suite rooms with hotel-standard comfort</p></div>
+      </div>
+    </div>
+    <div class="fac-card reveal d1">
+      <img src="https://images.unsplash.com/photo-1588776814546-ec7e7e9004c3?w=700&q=80&auto=format&fit=crop" alt="ICU" loading="lazy">
+      <div class="fac-card-overlay">
+        <div><h4>Intensive Care Unit</h4><p>24-bed ICU with 1:1 nurse-to-patient ratio</p></div>
+      </div>
+    </div>
+    <div class="fac-card reveal d2">
+      <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=700&q=80&auto=format&fit=crop" alt="Maternity Suite" loading="lazy">
+      <div class="fac-card-overlay">
+        <div><h4>Luxury Maternity Suites</h4><p>Birthing pools · Family rooms · Level 3 NICU</p></div>
+      </div>
+    </div>
+    <div class="fac-card reveal d3">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&q=80&auto=format&fit=crop" alt="Pharmacy" loading="lazy">
+      <div class="fac-card-overlay">
+        <div><h4>In-House Pharmacy</h4><p>Full dispensary · 24-hour emergency medication</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2 class="reveal">Find Your Nearest VitalCare</h2>
+  <p class="reveal d1">Walk in or book ahead — our team is ready to welcome you at any of our three locations.</p>
+  <a href="contact.html" class="btn btn-primary reveal d2">Book an Appointment →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div class="nav-logo" style="font-size:1.3rem"><div class="nav-dot"></div>VitalCare</div>
+      <p>World-class health and wellness care for every stage of life. Serving Lagos and Abuja since 2004.</p>
+    </div>
+    <div class="ft-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="doctors.html">Doctors</a></li>
+      <li><a href="hospitals.html">Hospitals</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Locations</h4><ul>
+      <li><a href="#">Victoria Island, Lagos</a></li>
+      <li><a href="#">Lekki Phase 1, Lagos</a></li>
+      <li><a href="#">Wuse II, Abuja</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Emergency</h4><ul>
+      <li><a href="#" style="color:var(--coral)">🚑 VI: +234 800 911 0000</a></li>
+      <li><a href="#" style="color:var(--coral)">🚑 Lekki: +234 800 911 0001</a></li>
+      <li><a href="#" style="color:var(--coral)">🚑 Abuja: +234 800 911 0002</a></li>
+    </ul></div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2024 VitalCare Health & Wellness. All rights reserved.</span>
+    <a href="contact.html">Book Appointment</a>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// Map switcher — click location card to swap iframe src
+document.querySelectorAll('.map-card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    if (e.target.classList.contains('mc-dir')) return; // don't intercept direction links
+    const src = this.dataset.src;
+    if (src) {
+      document.getElementById('mainMap').src = src;
+      document.querySelectorAll('.map-card').forEach(c => c.style.borderLeftColor = 'var(--cyan)');
+      this.style.borderLeftColor = 'var(--coral)';
+    }
+  });
+});
+</script>
+</body>
+</html>

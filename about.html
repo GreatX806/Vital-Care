@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About Us | VitalCare Health & Wellness</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.about-hero-img{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=1600&q=80&auto=format&fit=crop') center/cover no-repeat;
+  opacity:.13;
+}
+
+/* story split */
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3.5rem}
+.story-visual{position:relative;height:500px}
+.sv-main{
+  width:78%;height:380px;border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);position:absolute;top:0;right:0;
+}
+.sv-main img{width:100%;height:100%;object-fit:cover;display:block}
+.sv-accent{
+  width:52%;height:210px;border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);position:absolute;bottom:0;left:0;z-index:2;
+}
+.sv-accent img{width:100%;height:100%;object-fit:cover;display:block}
+.sv-year{
+  position:absolute;top:110px;left:10px;z-index:3;
+  background:var(--teal);color:#fff;border-radius:var(--rs);
+  padding:1.2rem 1.5rem;box-shadow:var(--sh);text-align:center;
+  border:1px solid rgba(0,188,212,.3);
+}
+.sv-year strong{display:block;font-family:var(--font-d);font-size:2.2rem;color:var(--cyan);line-height:1}
+.sv-year span{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.5)}
+.story-text p{font-size:.95rem;color:var(--text-mid);line-height:1.8;margin-bottom:1.1rem}
+
+/* values */
+.values-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.8rem}
+.val-card{background:var(--sage);border-radius:var(--r);padding:1.5rem;border-left:3px solid var(--cyan)}
+.val-card h4{font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:.4rem}
+.val-card p{font-size:.84rem;color:var(--text-light);line-height:1.65}
+
+/* timeline */
+.timeline{position:relative;margin-top:3.5rem;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--cyan),rgba(0,188,212,.1))}
+.tl-item{position:relative;margin-bottom:2.5rem;padding-left:2rem}
+.tl-dot{
+  position:absolute;left:-2rem;top:.2rem;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--cyan);border:3px solid var(--pure);
+  box-shadow:0 0 0 3px var(--cyan-glow);
+}
+.tl-year{font-size:.76rem;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
+.tl-item h4{font-family:var(--font-d);font-size:1.05rem;color:var(--text);margin-bottom:.4rem}
+.tl-item p{font-size:.87rem;color:var(--text-light);line-height:1.65}
+
+/* team leadership */
+.lead-card{
+  background:var(--pure);border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);transition:all .4s var(--ease);
+}
+.lead-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.13)}
+.lead-img{width:100%;height:300px;object-fit:cover;object-position:top;display:block}
+.lead-body{padding:1.8rem}
+.lead-body h3{font-family:var(--font-d);font-size:1.15rem;color:var(--text);margin-bottom:.25rem}
+.lead-role{color:var(--cyan);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.7rem}
+.lead-body p{font-size:.86rem;color:var(--text-light);line-height:1.7}
+
+/* awards */
+.awards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.award-card{
+  background:var(--pure);border-radius:var(--r);padding:2rem;text-align:center;
+  box-shadow:var(--sh);transition:all .4s var(--ease);
+}
+.award-card:hover{transform:translateY(-5px);border:1.5px solid var(--cyan)}
+.award-icon{font-size:2.5rem;margin-bottom:1rem}
+.award-card h4{font-family:var(--font-d);font-size:1rem;color:var(--text);margin-bottom:.4rem}
+.award-card p{font-size:.8rem;color:var(--text-light);line-height:1.6}
+
+@media(max-width:1050px){.awards-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+  .story-grid{grid-template-columns:1fr;gap:3rem}
+  .story-visual{height:340px}
+  .sv-main{width:85%;height:260px}
+  .sv-accent{height:160px}
+  .values-grid{grid-template-columns:1fr}
+  .awards-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){.awards-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-logo"><div class="loader-dot"></div>VitalCare</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><div class="nav-dot"></div>VitalCare</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="doctors.html">Doctors</a></li>
+    <li><a href="hospitals.html">Hospitals</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Appointment</a></li>
+  </ul>
+  <div class="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="about-hero-img"></div>
+  <div class="crumb"><a href="index.html">Home</a><span>›</span>About Us</div>
+  <h1>About VitalCare</h1>
+  <p>Two decades of healing, innovation, and unwavering commitment to the communities we serve across Nigeria.</p>
+</div>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stat-box"><div class="stat-n"><span data-count="20">0</span></div><p>Years of Service</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="12" data-suffix="K+">0</span></div><p>Patients Annually</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="50" data-suffix="K+">0</span></div><p>Free Screenings Done</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="48" data-suffix="+">0</span></div><p>Specialist Doctors</p></div>
+</div>
+
+<!-- OUR STORY -->
+<section class="sec">
+  <div class="tag">Our Story</div>
+  <h2 class="h1 reveal">More Than a Hospital —<br>A Health Community</h2>
+  <div class="story-grid">
+    <div class="story-visual reveal-l">
+      <div class="sv-main">
+        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=800&q=80&auto=format&fit=crop" alt="VitalCare Hospital Building" loading="lazy">
+      </div>
+      <div class="sv-accent">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80&auto=format&fit=crop" alt="VitalCare Team" loading="lazy">
+      </div>
+      <div class="sv-year">
+        <strong>2004</strong>
+        <span>Founded</span>
+      </div>
+    </div>
+    <div class="story-text reveal">
+      <p>VitalCare was founded in 2004 by a small group of physicians who shared a simple but powerful belief: every Nigerian deserves world-class healthcare, regardless of their background or income level.</p>
+      <p>What started as a 20-bed clinic in Surulere, Lagos, has grown into a network of three full-service hospitals across Lagos and Abuja — serving over 12,000 patients annually with more than 48 specialist consultants.</p>
+      <p>We've pioneered minimally invasive robotic surgery in Nigeria, established Lagos's first dedicated private Stroke Unit, and launched free annual screening camps that have reached over 50,000 underserved Nigerians since 2010.</p>
+      <p>Today, VitalCare is JCI accredited, ISO 9001 certified, and consistently ranked among the top private hospital groups in West Africa.</p>
+      <div class="values-grid">
+        <div class="val-card reveal d1">
+          <h4>🎯 Our Mission</h4>
+          <p>To deliver compassionate, evidence-based healthcare that transforms lives across Nigeria.</p>
+        </div>
+        <div class="val-card reveal d2">
+          <h4>👁 Our Vision</h4>
+          <p>A Nigeria where quality healthcare is the norm, not a privilege reserved for the few.</p>
+        </div>
+        <div class="val-card reveal d3">
+          <h4>🛡 Integrity</h4>
+          <p>Transparent, honest practice — in our billing, our communication, and our clinical decisions.</p>
+        </div>
+        <div class="val-card reveal d4">
+          <h4>🌱 Innovation</h4>
+          <p>We continuously adopt the latest medical advances, so our patients always receive the best.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="sec" style="background:var(--sage)">
+  <div class="tag">Our Journey</div>
+  <h2 class="h1 reveal">20 Years of Milestones</h2>
+  <div class="grid-2" style="margin-top:1rem;gap:3rem;align-items:start">
+    <div class="timeline">
+      <div class="tl-item reveal d1">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2004</div>
+        <h4>VitalCare Founded</h4>
+        <p>Opened a 20-bed clinic in Surulere, Lagos. First week: 42 patients. First surgery: appendectomy performed by Dr. Adeyemi.</p>
+      </div>
+      <div class="tl-item reveal d2">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2008</div>
+        <h4>Victoria Island Flagship Opens</h4>
+        <p>Relocated to 14 Ozumba Mbadiwe Avenue with a 120-bed facility — marking our transformation into a full-service hospital.</p>
+      </div>
+      <div class="tl-item reveal d3">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2010</div>
+        <h4>Free Screening Programme Launched</h4>
+        <p>First annual community health screening camp reaches 3,000 underserved Lagosians. Programme now runs across 12 states.</p>
+      </div>
+      <div class="tl-item reveal d4">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2012</div>
+        <h4>Lekki Hospital Opens</h4>
+        <p>140-bed Lekki Phase 1 facility opened, including Nigeria's first private IVF Centre ranked in the top 3 nationally.</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal d1">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2015</div>
+        <h4>First Private Stroke Unit in Lagos</h4>
+        <p>Launched Lagos's first dedicated private Stroke Unit with 24/7 thrombolysis capability, cutting stroke mortality rates by 38%.</p>
+      </div>
+      <div class="tl-item reveal d2">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2017</div>
+        <h4>JCI Accreditation Achieved</h4>
+        <p>VitalCare Victoria Island becomes only the third Nigerian hospital to achieve Joint Commission International accreditation.</p>
+      </div>
+      <div class="tl-item reveal d3">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2018</div>
+        <h4>Abuja Campus Opens</h4>
+        <p>Expanded to the Federal Capital Territory with our 80-bed Wuse II facility, catering to Abuja's diplomatic and corporate community.</p>
+      </div>
+      <div class="tl-item reveal d4">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2023</div>
+        <h4>Robotic Surgery Programme Launched</h4>
+        <p>Installed Nigeria's first Da Vinci robotic surgery system in private healthcare, opening a new era of minimally invasive surgery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP TEAM -->
+<section class="sec">
+  <div class="tag">Leadership</div>
+  <h2 class="h1 reveal">The Team Behind VitalCare</h2>
+  <p class="sub reveal d1">Visionary leaders who guide our mission every day.</p>
+  <div class="grid-3" style="margin-top:3rem">
+    <div class="lead-card reveal d1">
+      <img class="lead-img" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Prof. Adewale Okonkwo — Chief Executive Officer" loading="lazy">
+      <div class="lead-body">
+        <h3>Prof. Adewale Okonkwo</h3>
+        <div class="lead-role">Chief Executive Officer & Founder</div>
+        <p>Cardiologist and Harvard-trained health administrator. Founded VitalCare in 2004 with the vision of bringing JCI-standard care to Nigeria. 30 years of medical practice.</p>
+      </div>
+    </div>
+    <div class="lead-card reveal d2">
+      <img class="lead-img" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Dr. Chioma Nwachukwu — Chief Medical Officer" loading="lazy">
+      <div class="lead-body">
+        <h3>Dr. Chioma Nwachukwu</h3>
+        <div class="lead-role">Chief Medical Officer</div>
+        <p>Infectious disease specialist and patient safety champion. Leads our clinical governance framework and the team of 48 specialist consultants. Oxford & LUTH trained.</p>
+      </div>
+    </div>
+    <div class="lead-card reveal d3">
+      <img class="lead-img" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80&auto=format&fit=crop&crop=faces" alt="Mr. Emeka Eze — Chief Operations Officer" loading="lazy">
+      <div class="lead-body">
+        <h3>Mr. Emeka Eze</h3>
+        <div class="lead-role">Chief Operations Officer</div>
+        <p>Healthcare strategist with 20 years of hospital management across West Africa. Oversees all three VitalCare campuses and our 1,200-person workforce. Lagos Business School alumnus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS & ACCREDITATIONS -->
+<section class="sec" style="background:var(--teal)">
+  <div class="tag" style="color:var(--cyan)">Recognition</div>
+  <h2 class="h1 reveal" style="color:#fff">Awards & Accreditations</h2>
+  <p class="sub reveal d1" style="color:rgba(255,255,255,.6)">Our commitment to excellence has been recognised by leading bodies in Nigeria and internationally.</p>
+  <div class="awards-grid">
+    <div class="award-card reveal d1">
+      <div class="award-icon">🏆</div>
+      <h4>#1 Private Hospital in Lagos</h4>
+      <p>BusinessDay Healthcare Awards, 2023 & 2024 — consecutive years recognised for clinical excellence and patient satisfaction.</p>
+    </div>
+    <div class="award-card reveal d2">
+      <div class="award-icon">🌐</div>
+      <h4>JCI Accreditation</h4>
+      <p>Joint Commission International accreditation since 2017 — the gold standard for global healthcare quality and patient safety.</p>
+    </div>
+    <div class="award-card reveal d3">
+      <div class="award-icon">📋</div>
+      <h4>ISO 9001:2015 Certified</h4>
+      <p>All three campuses hold ISO 9001:2015 certification for quality management systems in healthcare service delivery.</p>
+    </div>
+    <div class="award-card reveal d4">
+      <div class="award-icon">❤️</div>
+      <h4>Best Maternity Services</h4>
+      <p>Nigerian Health Excellence Awards 2022 — recognised for outstanding outcomes in maternal and neonatal care across Nigeria.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2 class="reveal">Join the VitalCare Family</h2>
+  <p class="reveal d1">Whether as a patient or a healthcare professional — we warmly welcome you.</p>
+  <a href="contact.html" class="btn btn-primary reveal d2">Get in Touch →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div class="nav-logo" style="font-size:1.3rem"><div class="nav-dot"></div>VitalCare</div>
+      <p>World-class health and wellness care for every stage of life. Serving Lagos and Abuja since 2004.</p>
+    </div>
+    <div class="ft-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="doctors.html">Doctors</a></li>
+      <li><a href="hospitals.html">Hospitals</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Our Story</h4><ul>
+      <li><a href="about.html">History</a></li>
+      <li><a href="about.html">Leadership</a></li>
+      <li><a href="about.html">Awards</a></li>
+      <li><a href="about.html">Community</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Contact</h4><ul>
+      <li><a href="#">📞 +234 800 VITALCARE</a></li>
+      <li><a href="#">✉️ hello@vitalcare.ng</a></li>
+      <li><a href="#" style="color:var(--coral)">🚑 Emergency: 24/7</a></li>
+    </ul></div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2024 VitalCare Health & Wellness. All rights reserved.</span>
+    <div><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

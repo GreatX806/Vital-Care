@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Services | VitalCare Health & Wellness</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.svc-hero-img{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1600&q=80&auto=format&fit=crop') center/cover no-repeat;
+  opacity:.13;
+}
+/* big service section with image */
+.svc-section{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  padding:5rem 4rem;border-bottom:1px solid #e0eded;
+}
+.svc-section:nth-child(even){direction:rtl}
+.svc-section:nth-child(even) > *{direction:ltr}
+.svc-section-img{
+  border-radius:var(--r);overflow:hidden;height:400px;
+  box-shadow:var(--sh);position:relative;
+}
+.svc-section-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.svc-section-img:hover img{transform:scale(1.04)}
+.svc-section-img .img-badge{
+  position:absolute;bottom:1.5rem;left:1.5rem;
+  background:rgba(10,46,54,.88);backdrop-filter:blur(10px);
+  border-radius:var(--rs);padding:1rem 1.3rem;color:#fff;
+  border:1px solid rgba(0,188,212,.3);
+}
+.img-badge strong{display:block;font-family:var(--font-d);font-size:1.1rem}
+.img-badge span{font-size:.75rem;color:rgba(255,255,255,.55)}
+.svc-section-text .tag{margin-bottom:.8rem}
+.svc-section-text h2{font-family:var(--font-d);font-size:clamp(1.6rem,2.8vw,2.2rem);margin-bottom:1rem;color:var(--text);line-height:1.2}
+.svc-section-text p{font-size:.93rem;color:var(--text-mid);line-height:1.75;margin-bottom:1rem}
+.svc-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
+.pill{
+  background:var(--sage);color:var(--text-mid);
+  font-size:.78rem;font-weight:600;padding:.35rem .9rem;border-radius:50px;
+}
+@media(max-width:900px){
+  .svc-section{grid-template-columns:1fr;gap:2.5rem;padding:3rem 1.5rem;direction:ltr!important}
+  .svc-section-img{height:260px}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-logo"><div class="loader-dot"></div>VitalCare</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><div class="nav-dot"></div>VitalCare</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="doctors.html">Doctors</a></li>
+    <li><a href="hospitals.html">Hospitals</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="nav-cta">Book Appointment</a></li>
+  </ul>
+  <div class="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="svc-hero-img"></div>
+  <div class="crumb"><a href="index.html">Home</a><span>›</span>Services</div>
+  <h1>Our Medical Services</h1>
+  <p>A comprehensive suite of specialist healthcare services, delivered with precision, compassion, and cutting-edge technology — from prevention to complex intervention.</p>
+</div>
+
+<div class="stats-band">
+  <div class="stat-box"><div class="stat-n"><span data-count="15" data-suffix="+">0</span></div><p>Medical Specialties</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="6">0</span></div><p>Surgical Theatres</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="24" data-suffix="/7">0</span></div><p>Emergency Care</p></div>
+  <div class="stat-box"><div class="stat-n"><span data-count="98" data-suffix="%">0</span></div><p>Success Rate</p></div>
+</div>
+
+<!-- CARDIOLOGY -->
+<div class="svc-section">
+  <div class="svc-section-img reveal-l">
+    <img src="https://images.unsplash.com/photo-1631815587646-b85a1bb027e1?w=800&q=80&auto=format&fit=crop" alt="Cardiology at VitalCare" loading="lazy">
+    <div class="img-badge"><strong>Heart Centre</strong><span>Victoria Island · Floor 3</span></div>
+  </div>
+  <div class="svc-section-text reveal">
+    <div class="tag">Cardiology</div>
+    <h2>Advanced Heart Care</h2>
+    <p>Our Cardiology Centre is equipped with the latest diagnostic and interventional tools. From routine ECGs to complex multi-vessel angioplasty, our board-certified cardiologists provide comprehensive care for every cardiac condition.</p>
+    <p>We operate a dedicated Chest Pain Unit with 24/7 cover and a primary PCI programme that treats STEMI patients within 90 minutes of arrival.</p>
+    <div class="svc-pills">
+      <span class="pill">Echocardiography</span><span class="pill">Angioplasty</span>
+      <span class="pill">Pacemaker Implant</span><span class="pill">Cardiac Rehab</span>
+      <span class="pill">Heart Failure Clinic</span><span class="pill">Holter Monitoring</span>
+    </div>
+    <a href="contact.html" class="btn btn-dark">Book a Cardiologist →</a>
+  </div>
+</div>
+
+<!-- NEUROLOGY -->
+<div class="svc-section">
+  <div class="svc-section-img reveal-l">
+    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80&auto=format&fit=crop" alt="Neurology at VitalCare" loading="lazy">
+    <div class="img-badge"><strong>Stroke Unit</strong><span>First dedicated private stroke unit in Lagos</span></div>
+  </div>
+  <div class="svc-section-text reveal">
+    <div class="tag">Neurology</div>
+    <h2>Brain & Nervous System Care</h2>
+    <p>VitalCare runs Lagos's first dedicated private Stroke Unit with hyperacute thrombolysis capability. Our neurologists manage the full spectrum of neurological conditions with 3T MRI and EEG suites on-site.</p>
+    <p>We run specialist clinics for epilepsy, Parkinson's disease, multiple sclerosis, dementia, and headache disorders, supported by a multidisciplinary team.</p>
+    <div class="svc-pills">
+      <span class="pill">Stroke Care</span><span class="pill">Epilepsy Clinic</span>
+      <span class="pill">EEG & EMG</span><span class="pill">Memory Clinic</span>
+      <span class="pill">Parkinson's Care</span><span class="pill">MS Management</span>
+    </div>
+    <a href="contact.html" class="btn btn-dark">Book a Neurologist →</a>
+  </div>
+</div>
+
+<!-- ORTHOPEDICS -->
+<div class="svc-section">
+  <div class="svc-section-img reveal-l">
+    <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&q=80&auto=format&fit=crop" alt="Orthopedics at VitalCare" loading="lazy">
+    <div class="img-badge"><strong>Robotic Surgery Suite</strong><span>First in private healthcare, Lagos</span></div>
+  </div>
+  <div class="svc-section-text reveal">
+    <div class="tag">Orthopedics</div>
+    <h2>Bone, Joint & Sports Medicine</h2>
+    <p>Our Orthopedic Surgery Centre houses Nigeria's first robotic-assisted joint replacement system, delivering more precise, less invasive surgery with faster recovery times. Our sports medicine team works with professional athletes across Nigeria.</p>
+    <div class="svc-pills">
+      <span class="pill">Knee Replacement</span><span class="pill">Hip Replacement</span>
+      <span class="pill">Spinal Surgery</span><span class="pill">Sports Injury Repair</span>
+      <span class="pill">Fracture Management</span><span class="pill">Physiotherapy</span>
+    </div>
+    <a href="contact.html" class="btn btn-dark">Book an Orthopaedic Surgeon →</a>
+  </div>
+</div>
+
+<!-- MATERNITY -->
+<div class="svc-section">
+  <div class="svc-section-img reveal-l">
+    <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=800&q=80&auto=format&fit=crop" alt="Maternity at VitalCare" loading="lazy">
+    <div class="img-badge"><strong>3,000+ Deliveries</strong><span>Including complex twin & breech</span></div>
+  </div>
+  <div class="svc-section-text reveal">
+    <div class="tag">Maternity & Women's Health</div>
+    <h2>From Conception to Cradle</h2>
+    <p>Our award-winning Maternity Unit provides comprehensive care through every stage — fertility support, antenatal monitoring, delivery, and postnatal follow-up — all in a warm, boutique-hotel-style environment designed for mothers.</p>
+    <p>High-risk pregnancy specialists and Level 3 NICU ensure the best outcomes for the most complex cases.</p>
+    <div class="svc-pills">
+      <span class="pill">Antenatal Care</span><span class="pill">3D / 4D Scanning</span>
+      <span class="pill">Water Birth</span><span class="pill">NICU Level 3</span>
+      <span class="pill">Fertility Clinic</span><span class="pill">Postnatal Support</span>
+    </div>
+    <a href="contact.html" class="btn btn-dark">Book a Consultation →</a>
+  </div>
+</div>
+
+<!-- ONCOLOGY -->
+<div class="svc-section">
+  <div class="svc-section-img reveal-l">
+    <img src="https://images.unsplash.com/photo-1576671081837-49000212a370?w=800&q=80&auto=format&fit=crop" alt="Oncology at VitalCare" loading="lazy">
+    <div class="img-badge"><strong>Cancer Care Centre</strong><span>Comprehensive multi-disciplinary approach</span></div>
+  </div>
+  <div class="svc-section-text reveal">
+    <div class="tag">Oncology</div>
+    <h2>Comprehensive Cancer Care</h2>
+    <p>VitalCare's Cancer Care Centre brings together medical oncologists, radiation oncologists, surgical oncologists, and specialist nurses under one roof. Our weekly tumour board reviews every case individually for the most personalised treatment plan.</p>
+    <div class="svc-pills">
+      <span class="pill">Chemotherapy Suite</span><span class="pill">Immunotherapy</span>
+      <span class="pill">Cancer Screening</span><span class="pill">Palliative Care</span>
+      <span class="pill">Survivorship Clinic</span><span class="pill">Genetic Testing</span>
+    </div>
+    <a href="contact.html" class="btn btn-dark">Book an Oncologist →</a>
+  </div>
+</div>
+
+<!-- QUICK CARDS for remaining specialties -->
+<section class="sec" style="background:var(--sage)">
+  <div class="tag">More Specialties</div>
+  <h2 class="h1 reveal">All Our Services</h2>
+  <div class="grid-3" style="margin-top:2.5rem">
+    <div class="svc-card reveal d1"><div class="svc-icon">🦷</div><h3>Dental & Oral Health</h3><p>General dentistry, implants, orthodontics, and cosmetic procedures using digital X-ray and gentle modern techniques.</p><a href="contact.html" class="svc-link">Book →</a></div>
+    <div class="svc-card reveal d2"><div class="svc-icon">👁️</div><h3>Ophthalmology</h3><p>LASIK, cataract removal, glaucoma management, diabetic eye care, and paediatric eye services.</p><a href="contact.html" class="svc-link">Book →</a></div>
+    <div class="svc-card reveal d3"><div class="svc-icon">🩸</div><h3>Haematology</h3><p>Blood disorders including sickle cell disease, anaemia, clotting conditions, and haematological cancers.</p><a href="contact.html" class="svc-link">Book →</a></div>
+    <div class="svc-card reveal d1"><div class="svc-icon">🔬</div><h3>Pathology & Lab</h3><p>Comprehensive in-house diagnostics with same-day results for most tests. ISO accredited laboratory.</p><a href="contact.html" class="svc-link">Book →</a></div>
+    <div class="svc-card reveal d2"><div class="svc-icon">🧒</div><h3>Paediatrics</h3><p>Complete child health services from newborn screening through to adolescent medicine, with dedicated paediatric wards.</p><a href="contact.html" class="svc-link">Book →</a></div>
+    <div class="svc-card reveal d3"><div class="svc-icon">🧠</div><h3>Psychiatry & Mental Health</h3><p>Outpatient and inpatient psychiatric care, CBT, addiction medicine, and crisis intervention services.</p><a href="contact.html" class="svc-link">Book →</a></div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <h2 class="reveal">Not Sure Which Service You Need?</h2>
+  <p class="reveal d1">Start with a general consultation — our experienced intake team will guide you to the right specialist.</p>
+  <a href="contact.html" class="btn btn-primary reveal d2">Book a General Consultation →</a>
+</div>
+
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand"><div class="nav-logo" style="font-size:1.3rem"><div class="nav-dot"></div>VitalCare</div><p>World-class health and wellness care for every stage of life.</p></div>
+    <div class="ft-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li>
+      <li><a href="doctors.html">Doctors</a></li><li><a href="hospitals.html">Hospitals</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Emergency</h4><ul>
+      <li><a href="#" style="color:var(--coral)">🚑 +234 800 911 0000</a></li>
+      <li><a href="#">Available 24/7</a></li>
+    </ul></div>
+    <div class="ft-col"><h4>Contact</h4><ul>
+      <li><a href="#">📞 +234 800 VITALCARE</a></li>
+      <li><a href="#">✉️ hello@vitalcare.ng</a></li>
+    </ul></div>
+  </div>
+  <div class="ft-bottom"><span>© 2024 VitalCare Health & Wellness.</span><a href="contact.html">Book Appointment</a></div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
